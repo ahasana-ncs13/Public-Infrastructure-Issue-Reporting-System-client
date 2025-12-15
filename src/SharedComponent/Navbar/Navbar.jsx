@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router";
+import Logo from "./Logo";
 
 const Navbar = () => {
   const links = (
@@ -18,7 +19,7 @@ const Navbar = () => {
   return (
     <div>
       <div
-        className="navbar bg-base-100 shadow-sm px-20"
+        className="navbar bg-base-100 shadow-sm lg:px-20"
       >
         <div className="navbar-start">
           <div className="dropdown">
@@ -46,11 +47,7 @@ const Navbar = () => {
               {links}
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl">
-          <sup className="text-2xl text-secondary font-bold">
-             Public Infrastructure Issue</sup>
-             <span className=" -m-25 pt-5">Reporting System</span>
-          </a>
+         <Logo></Logo>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{links}</ul>

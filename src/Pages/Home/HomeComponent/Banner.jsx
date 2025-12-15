@@ -53,7 +53,7 @@ const Banner = () => {
 
 
   return (
-    <div className="bg-gradient-to-r from-secondary via-amber-100 to-primary  py-10">
+    <div className="bg-linear-to-r from-secondary via-amber-100 to-primary  py-10">
 
       <Swiper
         autoplay={{
@@ -76,8 +76,8 @@ const Banner = () => {
         
         {sliderData.map((slide) => (
           <SwiperSlide key={slide.id} >
-            <div className="grid grid-cols-2 gap-10 w-11/12 mx-auto">
-            <div className="w-150 p-10">
+            <div className="grid grid-cols-1 lg:grid-cols-2 md:grid-cols-2 gap-10 w-11/12 mx-auto">
+            <div className="max-w-150 p-10">
             <div className="title text-xl text-primary font-bold my-2" data-swiper-parallax="-300">
               {slide.title}
             </div>

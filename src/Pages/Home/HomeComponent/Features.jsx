@@ -83,10 +83,9 @@ const Features = () => {
             <motion.div
               key={index}
               variants={cardVariants}
-              whileHover={{ y: -8, scale: 1.03 }}
               className="card bg-base-200 shadow-md hover:shadow-xl transition"
             >
-              <div className="card-body text-center bg-gradient-to-r from-amber-200 to-yellow-50 ">
+              <div className="card-body text-center bg-linear-to-r from-amber-200 to-yellow-50 ">
                 <div className="text-primary text-4xl mx-auto mb-4">
                   {item.icon}
                 </div>
