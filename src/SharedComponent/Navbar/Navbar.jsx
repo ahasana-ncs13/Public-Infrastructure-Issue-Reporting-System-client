@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import Logo from "./Logo";
 
 const Navbar = () => {
@@ -53,7 +53,7 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
         <div className="navbar-end">
-          <a className="btn bg-primary text-white border-none">Button</a>
+          <Link to='/loginlayout/login' className="btn bg-primary text-white border-none">Login</Link>
         </div>
       </div>
     </div>
