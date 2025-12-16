@@ -1,8 +1,10 @@
 import React from "react";
 import { Link, NavLink } from "react-router";
 import Logo from "./Logo";
+import useAuth from "../../Hooks/useAuth";
 
 const Navbar = () => {
+  const {signOutUser,user}=useAuth()
   const links = (
     <>
       <li>
@@ -16,6 +18,14 @@ const Navbar = () => {
       </li>
     </>
   );
+
+  const handleLogout=()=>{
+    signOutUser()
+    .then()
+    .catch(error=>{
+      console.log(error.message())
+    })
+  }
   return (
     <div>
       <div
@@ -53,7 +63,12 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
         <div className="navbar-end">
-          <Link to='/loginlayout/login' className="btn bg-primary text-white border-none">Login</Link>
+        {
+          user?
+          <div className="flex gap-3">
+            <img className="w-10 h-10 rounded-full" src={user.photoURL} alt="profile picture" />
+          <button onClick={handleLogout} className="btn bg-primary text-white border-none">Logout</button></div>:<Link to='/loginlayout/login' className="btn bg-primary text-white border-none">Login</Link>
+        }  
         </div>
       </div>
     </div>
