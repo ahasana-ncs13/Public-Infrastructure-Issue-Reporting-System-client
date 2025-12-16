@@ -9,7 +9,6 @@ import {
   FaPhoneAlt,
   FaMapMarkerAlt,
 } from "react-icons/fa";
-import Logo from "../Navbar/Logo";
 
 const Footer = () => {
   return (
@@ -21,8 +20,8 @@ const Footer = () => {
 
           {/* Brand */}
           <div>
-            <h2 className="text-lg font-bold text-secondary mb-4">
-              Public Infrastructure Issue <br /> Reporting System
+            <h2 className="text-2xl font-bold text-secondary mb-2">
+             CivicFix
             </h2>
             <p className="text-sm text-neutral-content/80">
               A smart public infrastructure issue reporting system that
@@ -103,7 +102,7 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-3">
                 <FaEnvelope />
-                <span>support@citycare.gov</span>
+                <span>support@CivicFix.gov</span>
               </li>
             </ul>
           </div>
@@ -115,7 +114,7 @@ const Footer = () => {
         {/* Bottom Footer */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <p className="text-sm text-neutral-content/70">
-            © {new Date().getFullYear()} Public Infrastructure Issue Reporting System. All rights reserved.
+            © {new Date().getFullYear()} CivicFix. All rights reserved.
           </p>
 
           {/* Social Icons */}
