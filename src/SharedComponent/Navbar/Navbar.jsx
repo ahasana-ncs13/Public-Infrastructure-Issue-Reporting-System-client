@@ -11,7 +11,7 @@ const Navbar = () => {
         <NavLink to="/"> Home</NavLink>
       </li>
       <li>
-        <NavLink to="/"> All Issues</NavLink>
+        <NavLink to="/all-issue"> All Issues</NavLink>
       </li>
       <li>
         <NavLink to="/"> All Issues</NavLink>
@@ -29,7 +29,7 @@ const Navbar = () => {
   return (
     <div>
       <div
-        className="navbar bg-base-100 shadow-sm lg:px-20"
+        className="navbar bg-amber-50 shadow-sm lg:px-20"
       >
         <div className="navbar-start">
           <div className="dropdown">
