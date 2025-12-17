@@ -4,12 +4,14 @@ import Features from './HomeComponent/Features';
 import HowItWorks from './HomeComponent/HowItWorks';
 import Statistics from './HomeComponent/Statistics';
 import TrustPrinciples from './HomeComponent/TrustPrinciples';
+import LatestIssue from './HomeComponent/LatestIssue';
 
 
 const Home = () => {
     return (
         <div className='w-11/12 mx-auto'>
             <Banner></Banner>
+            <LatestIssue></LatestIssue>
             <Features></Features>
             <HowItWorks></HowItWorks>
             <Statistics></Statistics>

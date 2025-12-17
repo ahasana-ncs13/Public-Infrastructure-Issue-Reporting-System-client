@@ -1,19 +1,35 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useState } from "react";
 import useAxios from "../../Hooks/useAxios";
 import IssueCard from "./IssueCard";
+import useAuth from "../../Hooks/useAuth";
+import Loading from "../../SharedComponent/Loader/Loading";
 
 const All_Issue = () => {
+  const { loading, setLoading } = useAuth();
   const axioInstance = useAxios();
+  const [search, setSearch] = useState([]);
+  // console.log(search)
 
   const { data: issues = [] } = useQuery({
-    queryKey: ["all-issue"],
+    queryKey: ["all-issue", search],
     queryFn: async () => {
-      const res = await axioInstance.get("/all-issue");
-      //   console.log(res.data);
+      const res = await axioInstance.get("/all-issue", {
+        params: {
+           title: search,
+           category: search,
+           location: search,
+
+        },
+      });
+      setLoading(false);
       return res.data;
     },
   });
+
+  if (loading) {
+    return <Loading></Loading>;
+  }
   return (
     <>
       <div className="max-w-150 mx-auto text-center py-10">
@@ -43,7 +59,12 @@ const All_Issue = () => {
               <path d="m21 21-4.3-4.3"></path>
             </g>
           </svg>
-          <input type="search" required placeholder="Search" />
+          <input
+            onChange={(e) => setSearch(e.target.value)}
+            type="search"
+            required
+            placeholder="Search"
+          />
         </label>
 
         <select className="border-primary border-2 rounded px-4 py-2 text-sm ">
@@ -55,9 +76,15 @@ const All_Issue = () => {
         </select>
       </div>
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 w-11/12 mx-auto gap-10">
-        {issues.map((issue) => (
-          <IssueCard key={issue.id} issue={issue}></IssueCard>
-        ))}
+        {issues.length > 0 ? (
+          issues.map((issue) => (
+            <IssueCard key={issue.id} issue={issue}></IssueCard>
+          ))
+        ) : (
+          <p className="text-center text-gray-500 col-span-full">
+            No issues found
+          </p>
+        )}
       </div>
     </>
   );

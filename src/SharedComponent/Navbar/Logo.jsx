@@ -5,7 +5,7 @@ const Logo = () => {
     return (
         <div>
              <Link to='/' className="btn btn-ghost md:text-2xl text-sm text-secondary font-bold">
-             CivicFix
+             Civic<span className='text-green-500 -mx-1'>Fix</span> 
           </Link>
         </div>
     );

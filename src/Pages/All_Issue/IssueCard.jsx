@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { FaRegThumbsUp } from "react-icons/fa";
-import { useNavigate } from "react-router";
+import { Link } from "react-router";
 
-const IssueCard = ({ issue }) => {
-  const navigate = useNavigate();
+const IssueCard = ({ issue}) => {
   const [upvotes, setUpvotes] = useState(issue.upvotes);
 
   const handleUpvote = () => {
@@ -21,14 +20,13 @@ const IssueCard = ({ issue }) => {
       <div className="p-4">
         <div className="flex justify-between items-center mb-2">
           <span className="font-semibold text-lg">{issue.title}</span>
-           <button
+          <button
             onClick={handleUpvote}
             className="flex items-center space-x-1 text-primary hover:text-secondary "
           >
             <FaRegThumbsUp />
             <span>{upvotes}</span>
           </button>
-          
         </div>
         <div className="flex justify-between items-center mb-2">
           <span className="text-gray-500 text-sm">{issue.category}</span>
@@ -45,23 +43,25 @@ const IssueCard = ({ issue }) => {
           </span>
         </div>
         <div className="flex justify-between items-center mt-4">
-        <p className="text-gray-500 text-sm mb-2">{issue.location}</p>
+          <p className="text-gray-500 text-sm mb-2">{issue.location}</p>
 
-        <span
+          <span
             className={`text-xs font-semibold px-2 py-1 rounded-full ${
-              issue.priority === "High" ? "bg-red-500 text-white" : "bg-green-500 text-white"
+              issue.priority === "High"
+                ? "bg-red-500 text-white"
+                : "bg-green-500 text-white"
             }`}
           >
             {issue.priority}
           </span>
-</div>
-        <div className="mt-4">
-          <button
-            onClick={() => navigate(`/issues/${issue.id}`)}
-            className="bg-primary w-35 text-white px-3 py-1 rounded hover:bg-linear-to-l from-amber-200 to-teal-500 hover:text-black"
+        </div>
+        <div className="my-4">
+          <Link
+            to={`/issue-details/${issue._id}`}
+            className="bg-primary w-35 text-white px-3 rounded hover:bg-teal-900 py-2"
           >
             View Details
-          </button>
+          </Link>
         </div>
       </div>
     </div>
