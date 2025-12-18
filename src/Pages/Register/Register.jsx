@@ -1,25 +1,29 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import useAuth from "../../Hooks/useAuth";
 import GoogleAuthentication from "../../SharedComponent/Google/GoogleAuthentication";
 import axios, { Axios } from "axios";
 import Loading from "../../SharedComponent/Loader/Loading";
+import useAxios from "../../Hooks/useAxios";
 
 const Register = () => {
-  const { createUser, UpdateUserProfile} = useAuth();
+  const axioInstance = useAxios();
+  const Navigate = useNavigate();
+  const { createUser, UpdateUserProfile } = useAuth();
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm();
 
-  const handleRegister = (data) => {
+  const handleRegister =async (data) => {
     const profileImg = data.photo[0];
     // console.log(profileImg);
     // console.log(data);
-    createUser(data.email, data.password)
+   await createUser(data.email, data.password)
       .then((result) => {
+       
         console.log(result.user);
 
         const formData = new FormData();
@@ -29,22 +33,36 @@ const Register = () => {
           import.meta.env.VITE_Img_HostKey
         }`;
 
-        axios.post(img_api_url,formData)
-        .then((res) => {
-
+      axios.post(img_api_url, formData).then((res) => {
           const profile = {
             displayName: data.name,
             photoURL: res.data.data.url,
           };
 
-          UpdateUserProfile(profile)
-          .then(() => {
-            console.log("successfully");
-          })
-          .catch(error=>{
-            console.log(error)
-          })
+           UpdateUserProfile(profile)
+            // .then(() => {
+            //   console.log("successfully");
+              
+            // })
+            // .catch((error) => {
+            //   console.log(error);
+            // });
+
+          const userInfo = {
+          name: data.name,
+          email: data.email,
+          photoURL:res.data.data.url,
+        };
+
+       axioInstance.post("/users", userInfo);
+        // .then((data) => {
+        //   console.log(data.data);
+        //   return data.data;
+        // });
+         
         });
+
+         Navigate("/", { replace: true });
       })
       .catch((error) => {
         console.log(error.message);

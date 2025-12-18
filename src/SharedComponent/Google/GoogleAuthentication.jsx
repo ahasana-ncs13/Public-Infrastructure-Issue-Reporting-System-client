@@ -1,11 +1,22 @@
 import React from 'react';
 import useAuth from '../../Hooks/useAuth';
+import useAxios from '../../Hooks/useAxios';
+import { useNavigate } from 'react-router';
 
 const GoogleAuthentication = () => {
+    const navigate =useNavigate()
+    const axioInstance=useAxios()
     const {signInWithGoogle}=useAuth()
     const handleGoogle=()=>{
         signInWithGoogle()
     .then(result=>{
+         axioInstance.post("/users",result.user)
+        .then(data=>{
+          console.log(data.data)
+          return data.data
+        })
+
+        navigate("/")
         console.log(result.user);
         
     })

@@ -7,6 +7,10 @@ import LoginLayout from "../Layout/LoginLayout";
 import ErrorPage from "../SharedComponent/ErrorPage/ErrorPage";
 import All_Issue from "../Pages/All_Issue/All_Issue";
 import IssueDetails from "../Pages/IssueDetails/IssueDetails";
+import PrivateRoutes from "./PrivateRoutes";
+import DashboardLayout from "../Dashboard/DashboardLayout/DashboardLayout";
+import CitizenDashboard from "../Dashboard/CitizenDashboard/Dashboard/CitizenDashboard";
+import ReportIssue from "../Dashboard/CitizenDashboard/ReportIssue/ReportIssue";
 
 export const router = createBrowserRouter([
   {
@@ -19,13 +23,17 @@ export const router = createBrowserRouter([
         Component: Home,
       },
       {
-        path:"/all-issue",
-        Component:All_Issue,
+        path: "/all-issue",
+        Component: All_Issue,
       },
       {
-        path:"/issue-details/:id",
-        element:<IssueDetails></IssueDetails>
-      }
+        path: "/issue-details/:id",
+        element: (
+          <PrivateRoutes>
+            <IssueDetails></IssueDetails>
+          </PrivateRoutes>
+        ),
+      },
     ],
   },
   {
@@ -44,7 +52,26 @@ export const router = createBrowserRouter([
     ],
   },
   {
+    path: "/dashboardLayout",
+    element: (
+      <PrivateRoutes>
+        <DashboardLayout></DashboardLayout>
+      </PrivateRoutes>
+    ),
+    children: [
+      {
+        index: true,
+        path: "/dashboardLayout/citizenDashboard",
+        Component: CitizenDashboard,
+      },
+      {
+        path:"/dashboardLayout/reportIssue",
+        Component:ReportIssue
+      }
+    ],
+  },
+  {
     path: "*",
-    Component:ErrorPage
+    Component: ErrorPage,
   },
 ]);

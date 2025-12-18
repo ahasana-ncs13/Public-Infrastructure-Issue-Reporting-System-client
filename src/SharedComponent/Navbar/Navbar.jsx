@@ -4,7 +4,7 @@ import Logo from "./Logo";
 import useAuth from "../../Hooks/useAuth";
 
 const Navbar = () => {
-  const {signOutUser,user}=useAuth()
+  const { signOutUser, user } = useAuth();
   const links = (
     <>
       <li>
@@ -19,56 +19,134 @@ const Navbar = () => {
     </>
   );
 
-  const handleLogout=()=>{
+  const handleLogout = () => {
     signOutUser()
-    .then()
-    .catch(error=>{
-      console.log(error.message())
-    })
-  }
+      .then()
+      .catch((error) => {
+        console.log(error.message());
+      });
+  };
+
+  const handleProfile = () => {};
+
+  const dropdown = (
+    <>
+      <div onClick={handleProfile} className="dropdown dropdown-end">
+        {/* Avatar */}
+        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+          <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+            <img src={user?.photoURL} alt="profile" />
+          </div>
+        </label>
+
+        {/* Dropdown */}
+        <ul
+          tabIndex={0}
+          className="menu menu-sm dropdown-content mt-3 z-100 w-56 rounded-2xl bg-base-100 p-3 shadow-xl"
+        >
+          {/* User Info */}
+          <li className="mb-2 pointer-events-none">
+            <div className="flex items-center gap-3">
+              <div className="avatar">
+                <div className="w-10 rounded-full">
+                  <img
+                    src={user?.photoURL}
+                    alt="profile"
+                  />
+                </div>
+              </div>
+              <div>
+                <p className="font-semibold text-sm">{user?.displayName}</p>
+                <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+              </div>
+            </div>
+          </li>
+
+          <div className="divider my-1"></div>
+
+          {/* Links */}
+          <li>
+            <Link to="/profile" className="flex gap-2">
+              Profile
+            </Link>
+          </li>
+
+          <li>
+            <Link to="/dashboardLayout" className="flex gap-2">
+              Dashboard
+            </Link>
+          </li>
+
+          <div className="divider my-1"></div>
+
+          {/* Logout */}
+          <li>
+            <button
+              onClick={handleLogout}
+              className="btn btn-sm btn-primary text-white w-full"
+            >
+              Logout
+            </button>
+          </li>
+        </ul>
+      </div>
+    </>
+  );
+
   return (
     <div>
-      <div
-        className="navbar bg-amber-50 shadow-sm lg:px-20"
-      >
+      <div className="navbar bg-amber-50 shadow-sm lg:px-20">
         <div className="navbar-start">
-          <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+          <div className="dropdown dropdown-start lg:hidden">
+            {/* Hamburger Button */}
+            <label
+              tabIndex={0}
+              className="btn btn-ghost btn-circle"
+              aria-label="Open menu"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
+                className="h-6 w-6"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                {" "}
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
-                />{" "}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
               </svg>
-            </div>
+            </label>
+
+            {/* Dropdown Menu */}
             <ul
-              tabIndex="-1"
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+              tabIndex={0}
+              className="menu menu-sm dropdown-content mt-3 z-100
+               w-60 rounded-2xl bg-base-100 p-4 shadow-xl
+               gap-1"
             >
               {links}
             </ul>
           </div>
-         <Logo></Logo>
+
+          <Logo></Logo>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
         <div className="navbar-end">
-        {
-          user?
-          <div className="flex gap-3">
-            <img className="w-10 h-10 rounded-full" src={user.photoURL} alt="profile picture" />
-          <button onClick={handleLogout} className="btn bg-primary text-white border-none">Logout</button></div>:<Link to='/loginlayout/login' className="btn bg-primary text-white border-none">Login</Link>
-        }  
+          {user ? (
+            <div>{dropdown}</div>
+          ) : (
+            <Link
+              to="/loginlayout/login"
+              className="btn bg-primary text-white border-none"
+            >
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </div>

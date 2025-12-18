@@ -2,8 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import useAxios from "../../Hooks/useAxios";
 import { Link, useParams } from "react-router";
+import useAuth from "../../Hooks/useAuth";
 
 const IssueDetails = () => {
+  const { user } = useAuth();
+
   const { id } = useParams();
   const axioInstance = useAxios();
   const { data: issueDetails = [] } = useQuery({
@@ -13,6 +16,7 @@ const IssueDetails = () => {
       return res.data;
     },
   });
+
   return (
     <div className="max-w-7xl mx-auto p-6">
       {/* Title & Badges */}
@@ -32,27 +36,26 @@ const IssueDetails = () => {
             <h1 className="text-3xl font-bold">{issueDetails.title}</h1>
 
             <div>
-             <span
-              className={` text-amber-50 font-semibold py-3 badge ${
-                issueDetails.status === "Resolved"
-                  ? "badge-success"
-                  : "badge-warning"
-              }`}
-            >
-              {issueDetails.status}
-             </span>
+              <span
+                className={` text-amber-50 font-semibold py-3 badge ${
+                  issueDetails.status === "Resolved"
+                    ? "badge-success"
+                    : "badge-warning"
+                }`}
+              >
+                {issueDetails.status}
+              </span>
 
-             <span
-              className={`ml-2 text-amber-50 font-semibold py-3 badge ${
-                issueDetails.priority === "High"
-                  ? "badge-error"
-                  : "badge-neutral"
-              }`}
-            >
-              {issueDetails.priority} Priority
-             </span>
+              <span
+                className={`ml-2 text-amber-50 font-semibold py-3 badge ${
+                  issueDetails.priority === "High"
+                    ? "badge-error"
+                    : "badge-neutral"
+                }`}
+              >
+                {issueDetails.priority} Priority
+              </span>
             </div>
-
           </div>
 
           <div className="space-y-3 text-xl my-5">
@@ -76,6 +79,21 @@ const IssueDetails = () => {
               <span className="font-semibold">Reporter Name:</span>{" "}
               {issueDetails.reporterName}
             </p>
+          </div>
+          <div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-5">
+
+            {
+            user && issueDetails?.status ==="Pending" && (
+              <div  className=" grid grid-cols-2 gap-5">
+                <Link className="btn btn-outline btn-primary border-3 shadow-md">
+                  Edit Issue
+                </Link>
+                <Link className="btn btn-outline btn-primary border-3 shadow-md">
+                  Delete Issue
+                </Link>
+              </div>
+            )}
+            <Link className="btn btn-outline btn-primary border-3 shadow-md">Boost Issue</Link>
           </div>
         </div>
       </div>

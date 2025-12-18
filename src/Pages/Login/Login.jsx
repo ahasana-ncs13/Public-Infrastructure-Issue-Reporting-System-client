@@ -1,17 +1,19 @@
 import React from "react";
-import { Link } from "react-router";
+import { Link, Navigate, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import useAuth from "../../Hooks/useAuth";
 import GoogleAuthentication from "../../SharedComponent/Google/GoogleAuthentication";
 import Loading from "../../SharedComponent/Loader/Loading";
 
 const Login = () => {
+  const Navigate=useNavigate()
   const { loginUser} = useAuth();
   const { register, handleSubmit,formState: { errors } } = useForm();
   const handleLogin = (data) => {
     console.log(data);
     loginUser(data.email, data.password)
       .then((result) => {
+        Navigate("/")
         console.log(result.user);
       })
       .catch((error) => {

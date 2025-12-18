@@ -1,12 +1,26 @@
 import React, { useState } from "react";
 import { FaRegThumbsUp } from "react-icons/fa";
-import { Link } from "react-router";
+import { Link, Navigate, useNavigate } from "react-router";
+import useAuth from "../../Hooks/useAuth";
+import useAxios from "../../Hooks/useAxios";
+
 
 const IssueCard = ({ issue}) => {
+  const axioInstance =useAxios()
+  const {user}=useAuth()
+  const Navigate =useNavigate()
   const [upvotes, setUpvotes] = useState(issue.upvotes);
 
-  const handleUpvote = () => {
-    setUpvotes((vote) => vote + 1);
+  const handleUpvote =async () => {
+    if (user) {
+       setUpvotes((vote) => vote + 1);
+       await axioInstance.patch(`/all-issue/${issue._id}`)
+    }
+    else{
+      Navigate('/loginlayout/login')
+    }
+   
+    // .then(data => )
     // Here you can also call an API to update the backend
   };
 
