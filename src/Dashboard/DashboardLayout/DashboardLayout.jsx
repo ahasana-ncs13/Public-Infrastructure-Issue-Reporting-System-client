@@ -1,14 +1,13 @@
 import React from "react";
 import { Link, Outlet } from "react-router";
-import { MdAssignmentAdd, MdDashboard } from "react-icons/md";
+import { MdAssignmentAdd, MdDashboard, MdOutlineCelebration } from "react-icons/md";
 import { IoHome } from "react-icons/io5";
 import { FiSettings } from "react-icons/fi";
 import useAuth from "../../Hooks/useAuth";
 import { FaClipboardList } from "react-icons/fa";
 
-
 const DashboardLayout = () => {
-    const {user}=useAuth()
+  const { user } = useAuth();
   return (
     <div>
       <div className="drawer lg:drawer-open min-h-screen">
@@ -17,7 +16,7 @@ const DashboardLayout = () => {
         {/* ================= Main Content ================= */}
         <div className="drawer-content flex flex-col">
           {/* ---------- Navbar ---------- */}
-          <nav className="navbar w-full bg-amber-50">
+          <nav className="navbar w-full bg-amber-50 shadow-sm">
             <label
               htmlFor="my-drawer-4"
               aria-label="open sidebar"
@@ -43,18 +42,34 @@ const DashboardLayout = () => {
           </nav>
 
           {/* ---------- Page Content ---------- */}
-          <main className="p-6 flex-1">
-            <Outlet></Outlet>
+          <main className="flex-1 p-4 md:p-6 bg-base-100">
+            {/* Welcome Section */}
+            <div className="mb-6">
+              <div className="card bg-linear-to-r from-primary to-secondary text-primary-content shadow-md">
+                <div className="card-body items-center text-center">
+                  <h1 className="text-2xl md:text-3xl flex gap-2 items-center font-bold">Welcome<MdOutlineCelebration /> </h1> 
+                  <p className="text-sm md:text-base opacity-90">
+                    Manage your activities and track progress from your
+                    dashboard
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Page Content */}
+            <div className="bg-base-200 rounded-xl p-4 md:p-6 shadow-sm min-h-[60vh]">
+              <Outlet />
+            </div>
           </main>
         </div>
 
         {/* ================= Sidebar ================= */}
-        <div className="drawer-side is-drawer-close:overflow-visible">
+        <div className="drawer-side is-drawer-close:overflow-visible shadow-lg">
           <label htmlFor="my-drawer-4" className="drawer-overlay"></label>
 
           <aside
             className="flex min-h-full flex-col bg-amber-50 
-      is-drawer-close:w-14 is-drawer-open:w-64 p-2" 
+      is-drawer-close:w-14 is-drawer-open:w-64 p-2"
           >
             {/* ---------- Menu ---------- */}
             <ul className="menu w-full grow">
@@ -64,25 +79,29 @@ const DashboardLayout = () => {
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                   data-tip="Dashboard"
                 >
-                  <IoHome /> <span className="is-drawer-close:hidden">Home</span>
+                  <IoHome />{" "}
+                  <span className="is-drawer-close:hidden">Home</span>
                 </Link>
               </li>
               <li>
-                <Link to="/dashboardLayout/citizenDashboard"
+                <Link
+                  to="/dashboardLayout/citizenDashboard"
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                   data-tip="Dashboard"
                 >
-                  <MdDashboard/><span className="is-drawer-close:hidden">Dashboard</span>
+                  <MdDashboard />
+                  <span className="is-drawer-close:hidden">Dashboard</span>
                 </Link>
               </li>
 
               <li>
                 <Link
-                  to="/my-issues"
+                  to="/dashboardLayout/myIssue"
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                   data-tip="My Issues"
                 >
-                  <FaClipboardList /><span className="is-drawer-close:hidden">My Issues</span>
+                  <FaClipboardList />
+                  <span className="is-drawer-close:hidden">My Issues</span>
                 </Link>
               </li>
 
@@ -103,7 +122,8 @@ const DashboardLayout = () => {
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                   data-tip="Settings"
                 >
-                  <FiSettings /> <span className="is-drawer-close:hidden">Settings</span>
+                  <FiSettings />{" "}
+                  <span className="is-drawer-close:hidden">Settings</span>
                 </Link>
               </li>
             </ul>

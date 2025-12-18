@@ -32,7 +32,7 @@ const All_Issue = () => {
   }
   return (
     <>
-      <div className="max-w-150 mx-auto text-center py-10">
+      <div className="max-w-150 mx-auto text-center py-10 pt-26">
         <h1 className="text-4xl font-bold text-lime-600">
           All Reported Issues
         </h1>

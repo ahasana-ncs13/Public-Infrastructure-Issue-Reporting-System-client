@@ -3,8 +3,10 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import useAxios from "../../../Hooks/useAxios";
 import { useNavigate } from "react-router";
+import useAuth from "../../../Hooks/useAuth";
 
 const ReportIssue = () => {
+    const{user} =useAuth()
   const { handleSubmit, register } = useForm();
   const axioInstance=useAxios()
   const navigate=useNavigate()
@@ -26,7 +28,8 @@ const ReportIssue = () => {
       description: data.description,
       category: data.category,
       location: data.location,
-      image: res.data.data.url, // send image URL
+      image: res.data.data.url,
+      email: user?.email // send image URL
     };
 
     axioInstance.post("/reportissue",issuePayload)

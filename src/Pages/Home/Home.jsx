@@ -9,7 +9,7 @@ import LatestIssue from './HomeComponent/LatestIssue';
 
 const Home = () => {
     return (
-        <div className='w-11/12 mx-auto'>
+        <div className='w-11/12 mx-auto pt-16'>
             <Banner></Banner>
             <LatestIssue></LatestIssue>
             <Features></Features>

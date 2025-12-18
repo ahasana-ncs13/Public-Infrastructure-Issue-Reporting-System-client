@@ -11,6 +11,7 @@ import PrivateRoutes from "./PrivateRoutes";
 import DashboardLayout from "../Dashboard/DashboardLayout/DashboardLayout";
 import CitizenDashboard from "../Dashboard/CitizenDashboard/Dashboard/CitizenDashboard";
 import ReportIssue from "../Dashboard/CitizenDashboard/ReportIssue/ReportIssue";
+import MyIssue from "../Dashboard/CitizenDashboard/MyIssue/MyIssue";
 
 export const router = createBrowserRouter([
   {
@@ -67,6 +68,10 @@ export const router = createBrowserRouter([
       {
         path:"/dashboardLayout/reportIssue",
         Component:ReportIssue
+      },
+      {
+        path:"/dashboardLayout/myIssue",
+        Component:MyIssue
       }
     ],
   },

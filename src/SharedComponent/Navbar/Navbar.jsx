@@ -95,7 +95,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <div className="navbar bg-amber-50 shadow-sm lg:px-20">
+      <div className="navbar bg-amber-50 shadow-sm lg:px-20 fixed top-0 left-0 w-full z-50">
         <div className="navbar-start">
           <div className="dropdown dropdown-start lg:hidden">
             {/* Hamburger Button */}
