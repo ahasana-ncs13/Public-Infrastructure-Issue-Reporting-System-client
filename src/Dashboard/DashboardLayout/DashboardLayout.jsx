@@ -2,7 +2,6 @@ import React from "react";
 import { Link, Outlet } from "react-router";
 import { MdAssignmentAdd, MdDashboard, MdOutlineCelebration } from "react-icons/md";
 import { IoHome } from "react-icons/io5";
-import { FiSettings } from "react-icons/fi";
 import useAuth from "../../Hooks/useAuth";
 import { FaClipboardList } from "react-icons/fa";
 
@@ -116,16 +115,6 @@ const DashboardLayout = () => {
                 </Link>
               </li>
 
-              <li className="mt-4">
-                <Link
-                  to="/settings"
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                  data-tip="Settings"
-                >
-                  <FiSettings />{" "}
-                  <span className="is-drawer-close:hidden">Settings</span>
-                </Link>
-              </li>
             </ul>
 
             {/* ---------- Avatar (Bottom) ---------- */}
@@ -147,9 +136,6 @@ const DashboardLayout = () => {
               <ul className="menu menu-sm dropdown-content mb-2 shadow bg-base-100 rounded-box w-44">
                 <li>
                   <Link to="/profile">Profile</Link>
-                </li>
-                <li>
-                  <Link to="/settings">Settings</Link>
                 </li>
               </ul>
             </div>

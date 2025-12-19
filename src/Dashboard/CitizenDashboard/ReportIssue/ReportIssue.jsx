@@ -101,12 +101,11 @@ const ReportIssue = () => {
 
         {/* Image Upload */}
         <div>
-          <label className="label font-medium">Upload Image (optional)</label>
+          <label className="label font-medium">Upload Image(required)</label>
           <input
             type="file"
             accept="image/*"
             className="file-input file-input-bordered w-full"
-            // onChange={handleImageChange}
             {...register("image")}
           />
         </div>
