@@ -27,19 +27,19 @@ const MyIssue = () => {
     editModalRef.current?.showModal();
   };
 
-  const onSubmit = async(data) => {
+  const onSubmit = async (data) => {
     console.log("Updated Issue Data:", data);
     const { _id, ...updateData } = data;
 
     axiosInstance.patch(`/myissue/${selectedIssue._id}`, updateData);
     // document.activeElement?.blur();
     editModalRef.current?.close();
-  await Swal.fire({
+    await Swal.fire({
       title: "Successfully!",
       text: "your issue has been updated!",
       icon: "success",
     });
-    
+
     refetch();
   };
 
@@ -153,120 +153,6 @@ const MyIssue = () => {
                       </button>
                     )}
 
-                    <dialog
-                      ref={editModalRef}
-                      className="modal modal-bottom sm:modal-middle"
-                    >
-                      <div className="modal-box">
-                        <div className="">
-                          <form
-                            onSubmit={handleSubmit(onSubmit)}
-                            className="space-y-4"
-                          >
-                            {/* Title */}
-                            <div>
-                              <label className="label">Title</label>
-                              <input
-                                {...register("title")}
-                                className="input input-bordered w-full"
-                              />
-                            </div>
-
-                            {/* Description */}
-                            <div>
-                              <label className="label">Description</label>
-                              <textarea
-                                {...register("description")}
-                                className="textarea textarea-bordered w-full"
-                                rows={4}
-                              />
-                            </div>
-
-                            {/* Category */}
-                            <div>
-                              <label className="label">Category</label>
-                              <select
-                                {...register("category")}
-                                className="select select-bordered w-full"
-                              >
-                                <option>Road & Traffic</option>
-                                <option>Water Supply</option>
-                                <option>Sanitation</option>
-                                <option>Electricity</option>
-                                <option>Public Safety</option>
-                                <option>Other</option>
-                              </select>
-                            </div>
-
-                            {/* Location */}
-                            <div>
-                              <label className="label">Location</label>
-                              <input
-                                {...register("location")}
-                                className="input input-bordered w-full"
-                              />
-                            </div>
-
-                            {/* Image URL */}
-                            <div>
-                              <label className="label">Image URL</label>
-                              <input
-                                {...register("image")}
-                                className="input input-bordered w-full"
-                              />
-                            </div>
-
-                            {/* Email (readonly) */}
-                            <div>
-                              <label className="label">User Email</label>
-                              <input
-                                {...register("email")}
-                                readOnly
-                                className="input input-bordered w-full bg-gray-100"
-                              />
-                            </div>
-
-                            {/* Status */}
-                            <div>
-                              <label className="label">Status</label>
-                              <select
-                                {...register("status")}
-                                className="select select-bordered w-full"
-                              >
-                                <option>Pending</option>
-                                <option>In Progress</option>
-                                <option>Resolved</option>
-                              </select>
-                            </div>
-
-                            {/* Priority */}
-                            <div>
-                              <label className="label">Priority</label>
-                              <select
-                                {...register("priority")}
-                                className="select select-bordered w-full"
-                              >
-                                <option>Normal</option>
-                                <option>Medium</option>
-                                <option>High</option>
-                              </select>
-                            </div>
-
-                            {/* Submit */}
-                            <button className="btn btn-primary w-full">
-                              Update Issue
-                            </button>
-                          </form>
-                        </div>
-                        <div className="modal-action">
-                          <form method="dialog">
-                            {/* if there is a button in form, it will close the modal */}
-                            <button className="btn">Close</button>
-                          </form>
-                        </div>
-                      </div>
-                    </dialog>
-
                     <button
                       onClick={() => handleDelete(m)}
                       className="btn btn-sm btn-primary"
@@ -287,6 +173,112 @@ const MyIssue = () => {
           </tbody>
         </table>
       </div>
+      <dialog ref={editModalRef} className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box">
+          <div className="">
+            {/* eslint-disable-next-line react-hooks/refs */}
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+              {/* Title */}
+              <div>
+                <label className="label">Title</label>
+                <input
+                  {...register("title")}
+                  className="input input-bordered w-full"
+                />
+              </div>
+
+              {/* Description */}
+              <div>
+                <label className="label">Description</label>
+                <textarea
+                  {...register("description")}
+                  className="textarea textarea-bordered w-full"
+                  rows={4}
+                />
+              </div>
+
+              {/* Category */}
+              <div>
+                <label className="label">Category</label>
+                <select
+                  {...register("category")}
+                  className="select select-bordered w-full"
+                >
+                  <option>Road & Traffic</option>
+                  <option>Water Supply</option>
+                  <option>Sanitation</option>
+                  <option>Electricity</option>
+                  <option>Public Safety</option>
+                  <option>Other</option>
+                </select>
+              </div>
+
+              {/* Location */}
+              <div>
+                <label className="label">Location</label>
+                <input
+                  {...register("location")}
+                  className="input input-bordered w-full"
+                />
+              </div>
+
+              {/* Image URL */}
+              <div>
+                <label className="label">Image URL</label>
+                <input
+                  {...register("image")}
+                  className="input input-bordered w-full"
+                />
+              </div>
+
+              {/* Email (readonly) */}
+              <div>
+                <label className="label">User Email</label>
+                <input
+                  {...register("email")}
+                  readOnly
+                  className="input input-bordered w-full bg-gray-100"
+                />
+              </div>
+
+              {/* Status */}
+              <div>
+                <label className="label">Status</label>
+                <select
+                  {...register("status")}
+                  className="select select-bordered w-full"
+                >
+                  <option>Pending</option>
+                  <option>In Progress</option>
+                  <option>Resolved</option>
+                </select>
+              </div>
+
+              {/* Priority */}
+              <div>
+                <label className="label">Priority</label>
+                <select
+                  {...register("priority")}
+                  className="select select-bordered w-full"
+                >
+                  <option>Normal</option>
+                  <option>Medium</option>
+                  <option>High</option>
+                </select>
+              </div>
+
+              {/* Submit */}
+              <button className="btn btn-primary w-full">Update Issue</button>
+            </form>
+          </div>
+          <div className="modal-action">
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </div>
   );
 };

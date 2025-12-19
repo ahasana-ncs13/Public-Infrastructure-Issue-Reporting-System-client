@@ -1,8 +1,7 @@
-import React, { useRef} from "react";
+import React, { useRef } from "react";
 import useAuth from "../../../Hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../../Hooks/useAxios";
-import EditProfileModal from "./EditProfileModal";
 import Swal from "sweetalert2";
 import { useForm } from "react-hook-form";
 
@@ -10,8 +9,7 @@ const UserProfile = () => {
   const { user } = useAuth();
   console.log(user);
   const axiosInstance = useAxios();
-  //   const [isModalOpen, setIsModalOpen] = useState(false);
-   const { register, handleSubmit,reset} = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const editProfileModalRef = useRef(null);
 
   const { data: currentUser = [], refetch } = useQuery({
@@ -22,29 +20,27 @@ const UserProfile = () => {
     },
   });
 
-
-
   const handleEditProfileModalOpen = () => {
     // setSelectedIssue(issue);
-     reset(currentUser);
-    editProfileModalRef.current?.showModal();
+    reset(currentUser);
+    editProfileModalRef.current?.showModal(); 
   };
 
-  const onSubmit = async(data) => {
+  const onSubmit = async (data) => {
     console.log("Updated Issue Data:", data);
     const { _id, ...updateData } = data;
 
-   await axiosInstance.patch(`/currentuser/${user?.email}`, updateData);
+    await axiosInstance.patch(`/currentuser/${user?.email}`, updateData);
     // document.activeElement?.blur();
     editProfileModalRef.current?.close();
-  await Swal.fire({
+    await Swal.fire({
       title: "Successfully!",
       text: "Your profile has been updated!",
       icon: "success",
     });
-    
+
     refetch();
-  };  
+  };
   //   axiosInstance.patch(`/currentuser/${user?.email}`,)
   console.log(currentUser);
 
@@ -66,10 +62,12 @@ const UserProfile = () => {
 
             {/* User Info */}
             <div className="text-center sm:text-left w-full">
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold">
-                {currentUser?.name || user.displayName}
-              </h2>
-
+              <div className="flex justify-between">
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold">
+                  {currentUser?.name || user.displayName}
+                </h2>
+                <button className="btn btn-secondary">Subscribe</button>
+              </div>
               <p className="text-sm sm:text-base text-gray-500 break-all">
                 {currentUser?.email || user.email}
               </p>
@@ -120,31 +118,32 @@ const UserProfile = () => {
             >
               <div className="modal-box">
                 <div className="">
+                    {/* eslint-disable-next-line react-hooks/refs */}
                   <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div>
-            <label className="label">Name</label>
-            <input
-              type="text"
-              {...register("name", { required: true })}
-              className="input input-bordered w-full"
-            />
-          </div>
+                    <div>
+                      <label className="label">Name</label>
+                      <input
+                        type="text"
+                        {...register("name", { required: true })}
+                        className="input input-bordered w-full"
+                      />
+                    </div>
 
-          <div>
-            <label className="label">Photo URL</label>
-            <input
-              type="text"
-              {...register("photoURL")}
-              className="input input-bordered w-full"
-            />
-          </div>
+                    <div>
+                      <label className="label">Photo URL</label>
+                      <input
+                        type="text"
+                        {...register("photoURL")}
+                        className="input input-bordered w-full"
+                      />
+                    </div>
 
-          <div className="flex justify-end gap-2 mt-4">
-            <button type="submit" className="btn btn-primary">
-              Save
-            </button>
-          </div>
-        </form>
+                    <div className="flex justify-end gap-2 mt-4">
+                      <button type="submit" className="btn btn-primary">
+                        Save
+                      </button>
+                    </div>
+                  </form>
                 </div>
                 <div className="modal-action">
                   <form method="dialog">
@@ -157,14 +156,6 @@ const UserProfile = () => {
           </div>
         </div>
       </div>
-
-      {/* Modal
-      <EditProfileModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        currentUser={currentUser}
-        onUpdate={refetch} // refresh data after update
-      /> */}
     </div>
   );
 };
