@@ -13,7 +13,7 @@ const MyIssue = () => {
   const editModalRef = useRef(null);
   const [selectedIssue, setSelectedIssue] = useState(null);
 
-  const { data: myIssue = [],refetch } = useQuery({
+  const { data: myIssue = [], refetch } = useQuery({
     queryKey: ["my-issue"],
     queryFn: async () => {
       const res = await axiosInstance.get(`/myissue?email=${user.email}`);
@@ -24,13 +24,23 @@ const MyIssue = () => {
   const handleEditModalOpen = (issue) => {
     setSelectedIssue(issue);
     reset(issue);
-    editModalRef.current.showModal();
+    editModalRef.current?.showModal();
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = async(data) => {
     console.log("Updated Issue Data:", data);
-    // axios.patch(`/issues/6944587437b787015d4d47ba`, data)
-    axiosInstance.patch(`/myissue/${selectedIssue._id}`, data);
+    const { _id, ...updateData } = data;
+
+    axiosInstance.patch(`/myissue/${selectedIssue._id}`, updateData);
+    // document.activeElement?.blur();
+    editModalRef.current?.close();
+  await Swal.fire({
+      title: "Successfully!",
+      text: "your issue has been updated!",
+      icon: "success",
+    });
+    
+    refetch();
   };
 
   const handleDelete = (m) => {
@@ -52,7 +62,7 @@ const MyIssue = () => {
           text: "Your Issue has been deleted.",
           icon: "success",
         });
-        refetch()
+        refetch();
       }
     });
   };
@@ -102,12 +112,30 @@ const MyIssue = () => {
 
                 {/* Status */}
                 <td>
-                  <span className="badge badge-warning">{m.status}</span>
+                  <span
+                    className={`text-xs font-semibold px-2 py-1 rounded-full ${
+                      m.status === "In Progress"
+                        ? "bg-yellow-300 text-gray-800"
+                        : m.status === "Resolved"
+                        ? "bg-green-300 text-gray-800"
+                        : "bg-gray-300 text-gray-800"
+                    }`}
+                  >
+                    {m.status}
+                  </span>
                 </td>
 
                 {/* Priority */}
                 <td>
-                  <span className="badge badge-info">{m.priority}</span>
+                  <span
+                    className={`text-xs font-semibold px-2 py-1 rounded-full ${
+                      m.priority === "High"
+                        ? "bg-red-500 text-white"
+                        : "bg-green-500 text-white"
+                    }`}
+                  >
+                    {m.priority}
+                  </span>
                 </td>
 
                 {/* Upvotes */}
@@ -116,15 +144,15 @@ const MyIssue = () => {
                 {/* Action */}
                 <td>
                   <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-2 grid-cols-1">
-                    {
-                        m.status ==="Pending" && <button
-                      onClick={() => handleEditModalOpen(m)}
-                      className="btn btn-sm btn-primary"
-                    >
-                      Edit
-                    </button>
-                    }
-                    
+                    {m.status === "Pending" && (
+                      <button
+                        onClick={() => handleEditModalOpen(m)}
+                        className="btn btn-sm btn-primary"
+                      >
+                        Edit
+                      </button>
+                    )}
+
                     <dialog
                       ref={editModalRef}
                       className="modal modal-bottom sm:modal-middle"

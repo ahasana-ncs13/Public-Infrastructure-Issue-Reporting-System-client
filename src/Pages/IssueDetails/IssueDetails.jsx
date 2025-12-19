@@ -18,7 +18,7 @@ const IssueDetails = () => {
   });
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
+    <div className="max-w-7xl mx-auto p-6 pt-26">
       {/* Title & Badges */}
       <div className="grid lg:grid-cols-2 grid-cols-1 gap-10 mb-4">
         {/* Image */}
@@ -83,7 +83,7 @@ const IssueDetails = () => {
           <div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-5">
 
             {
-            user && issueDetails?.status ==="Pending" && (
+            user?.role ==="user" && issueDetails?.status ==="Pending" && (
               <div  className=" grid grid-cols-2 gap-5">
                 <Link className="btn btn-outline btn-primary border-3 shadow-md">
                   Edit Issue

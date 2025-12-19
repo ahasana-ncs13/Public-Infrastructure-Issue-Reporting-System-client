@@ -66,7 +66,7 @@ const Navbar = () => {
 
           {/* Links */}
           <li>
-            <Link to="/profile" className="flex gap-2">
+            <Link to="/dashboardLayout/userProfile" className="flex gap-2">
               Profile
             </Link>
           </li>

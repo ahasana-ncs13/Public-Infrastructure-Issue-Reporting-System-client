@@ -135,7 +135,7 @@ const DashboardLayout = () => {
 
               <ul className="menu menu-sm dropdown-content mb-2 shadow bg-base-100 rounded-box w-44">
                 <li>
-                  <Link to="/profile">Profile</Link>
+                  <Link to="/dashboardLayout/userProfile">Profile</Link>
                 </li>
               </ul>
             </div>
