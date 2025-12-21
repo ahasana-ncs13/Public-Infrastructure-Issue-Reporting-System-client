@@ -14,9 +14,9 @@ const MyIssue = () => {
   const [selectedIssue, setSelectedIssue] = useState(null);
 
   const { data: myIssue = [], refetch } = useQuery({
-    queryKey: ["my-issue"],
+    queryKey: ["my-issue",user?.email],
     queryFn: async () => {
-      const res = await axiosInstance.get(`/myissue?email=${user.email}`);
+      const res = await axiosInstance.get(`/myissue?email=${user?.email}`);
       return res.data;
     },
   });
@@ -31,7 +31,7 @@ const MyIssue = () => {
     console.log("Updated Issue Data:", data);
     const { _id, ...updateData } = data;
 
-    axiosInstance.patch(`/myissue/${selectedIssue._id}`, updateData);
+    await axiosInstance.patch(`/myissue/${selectedIssue._id}`, updateData);
     // document.activeElement?.blur();
     editModalRef.current?.close();
     await Swal.fire({
@@ -43,10 +43,10 @@ const MyIssue = () => {
     refetch();
   };
 
-  const handleDelete = (m) => {
+  const handleDelete = async(m) => {
     console.log(m);
 
-    Swal.fire({
+    await Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
       icon: "warning",

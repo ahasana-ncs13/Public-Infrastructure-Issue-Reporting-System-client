@@ -16,9 +16,6 @@ const Navbar = () => {
       <li>
         <NavLink to="/all-issue"> All Issues</NavLink>
       </li>
-      <li>
-        <NavLink to="/"> All Issues</NavLink>
-      </li>
     </>
   );
 

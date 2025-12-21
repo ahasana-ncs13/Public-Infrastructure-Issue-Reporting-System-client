@@ -47,7 +47,7 @@ const PaymentCancel = () => {
                 </button>
               </Link>
 
-              <Link to="/dashboardLayout" className="w-full sm:w-auto">
+              <Link to="/" className="w-full sm:w-auto">
                 <button className="btn btn-outline w-full">
                   Go to Dashboard
                 </button>

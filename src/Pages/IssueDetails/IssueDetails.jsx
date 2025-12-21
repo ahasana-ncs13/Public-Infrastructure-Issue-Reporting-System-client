@@ -8,14 +8,29 @@ const IssueDetails = () => {
   const { user } = useAuth();
 
   const { id } = useParams();
-  const axioInstance = useAxios();
+  const axiosInstance = useAxios();
   const { data: issueDetails = [] } = useQuery({
     queryKey: ["issue-details", id],
     queryFn: async () => {
-      const res = await axioInstance.get(`/issue-details/${id}`);
+      const res = await axiosInstance.get(`/issue-details/${id}`);
       return res.data;
     },
   });
+
+  const handleBoost = async () => {
+    const paymentInfo = {
+      email: user.email,
+      _id: issueDetails._id,
+      title:issueDetails.title
+    };
+
+    const res = await axiosInstance.post(
+      "/create-checkout-session-boost",
+      paymentInfo
+    );
+    console.log(res.data);
+    window.location.assign(res.data.url);
+  };
 
   return (
     <div className="max-w-7xl mx-auto p-6 pt-26">
@@ -81,10 +96,8 @@ const IssueDetails = () => {
             </p>
           </div>
           <div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-5">
-
-            {
-            user?.role ==="user" && issueDetails?.status ==="Pending" && (
-              <div  className=" grid grid-cols-2 gap-5">
+            {user?.role === "user" && issueDetails?.status === "Pending" && (
+              <div className=" grid grid-cols-2 gap-5">
                 <Link className="btn btn-outline btn-primary border-3 shadow-md">
                   Edit Issue
                 </Link>
@@ -93,7 +106,14 @@ const IssueDetails = () => {
                 </Link>
               </div>
             )}
-            <Link className="btn btn-outline btn-primary border-3 shadow-md">Boost Issue</Link>
+
+             <button
+              onClick={handleBoost} disabled={issueDetails.priority === "High"}
+              className="btn btn-outline btn-primary border-3 shadow-md"
+            >
+              Boost Issue
+            </button> 
+            
           </div>
         </div>
       </div>

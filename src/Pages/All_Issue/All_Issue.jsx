@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
 import useAxios from "../../Hooks/useAxios";
 import IssueCard from "./IssueCard";
-import Loading from "../../SharedComponent/Loader/Loading";
+
 
 const All_Issue = () => {
   const axioInstance = useAxios();
@@ -23,10 +23,6 @@ const All_Issue = () => {
       
     },
   });
-  // if (isLoading) {
-  //       return <Loading></Loading>;
-  //     }
-
   return (
     <>
       <div className="max-w-150 mx-auto text-center py-10 pt-26">

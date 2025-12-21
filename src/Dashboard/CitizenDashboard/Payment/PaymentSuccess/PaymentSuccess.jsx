@@ -14,11 +14,9 @@ const PaymentSuccess = () => {
     return () => clearTimeout(timer);
   }, [navigate]);
 
-
   const [params] = useSearchParams();
   const sessionId = params.get("session_id");
   const axiosInstance = useAxios();
-//   const queryClient = useQueryClient();
 
  const { data: PaymentSuccess = [],  } = useQuery({
     queryKey: ["payment-success"],

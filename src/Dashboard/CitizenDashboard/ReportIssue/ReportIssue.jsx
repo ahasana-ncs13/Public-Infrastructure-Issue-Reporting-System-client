@@ -4,37 +4,61 @@ import { useForm } from "react-hook-form";
 import useAxios from "../../../Hooks/useAxios";
 import { useNavigate } from "react-router";
 import useAuth from "../../../Hooks/useAuth";
+import { useQuery } from "@tanstack/react-query";
+import Loading from "../../../SharedComponent/Loader/Loading";
 
 const ReportIssue = () => {
-    const{user} =useAuth()
+  const { user } = useAuth();
   const { handleSubmit, register } = useForm();
-  const axioInstance=useAxios()
-  const navigate=useNavigate()
+  const axiosInstance = useAxios();
+  const navigate = useNavigate();
 
-  const handleIssueForm = async(data) => {
+  const { data: currentUser = [] } = useQuery({
+    queryKey: ["userprofile", user?.email],
+    queryFn: async () => {
+      const res = await axiosInstance.get(`/currentuser/${user?.email}`);
+      return res.data;
+    },
+  });
+
+  const handleIssueForm = async (data) => {
     console.log(data);
     const profileImg = data.image[0];
-    console.log(profileImg)
+    console.log(profileImg);
     const formData = new FormData();
     formData.append("image", profileImg);
 
     const img_api_url = `https://api.imgbb.com/1/upload?key=${
-          import.meta.env.VITE_Img_HostKey
-        }`;
-    const res= await axioInstance.post(img_api_url, formData)
+      import.meta.env.VITE_Img_HostKey
+    }`;
+    const res = await axiosInstance.post(img_api_url, formData);
 
-     const issuePayload = {
+    const issuePayload = {
       title: data.title,
       description: data.description,
       category: data.category,
       location: data.location,
       image: res.data.data.url,
-      email: user?.email // send image URL
+      email: user?.email, // send image URL
     };
 
-    axioInstance.post("/reportissue",issuePayload)
-    navigate("/dashboardLayout/myIssue")
+    axiosInstance.post("/reportissue", issuePayload);
+    navigate("/dashboardLayout/myIssue");
   };
+
+  const { data: issueData = {}, isLoading } = useQuery({
+    queryKey: ["report-issue", user?.email],
+    queryFn: async () => {
+      const res = await axiosInstance.get(`/myissue-count/${user.email}`);
+      return res.data;
+    },
+  });
+
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
+
+  console.log(issueData);
 
   return (
     <div className="max-w-3xl mx-auto bg-base-200 rounded-xl shadow-md p-6 md:p-8">
@@ -72,7 +96,7 @@ const ReportIssue = () => {
         <div>
           <label className="label font-medium">Category</label>
           <select
-          defaultValue=""
+            defaultValue=""
             className="select select-bordered w-full"
             {...register("category", { required: true })}
           >
@@ -110,9 +134,34 @@ const ReportIssue = () => {
           />
         </div>
 
+        <div className="mb-4">
+          {isLoading ? (
+            <p>Loading issue count...</p>
+          ) : (
+            <>
+              {!currentUser?.isPremium ? (
+                <p className="text-warning font-medium">
+                  You have reported {issueData.count} / 3 issues (Free user)
+                </p>
+              ) : (
+                <p className="text-success font-medium">
+                  You have reported {issueData.count} issues (Premium -
+                  Unlimited)
+                </p>
+              )}
+            </>
+          )}
+        </div>
+
         {/* Submit Button */}
         <div className="pt-4">
-          <button className="btn btn-primary w-full">Submit Issue</button>
+          <button
+            type="submit"
+            disabled={!currentUser?.isPremium && issueData.count >= 3}
+            className="btn btn-primary w-full"
+          >
+            Submit Issue
+          </button>
         </div>
       </form>
     </div>
