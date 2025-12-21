@@ -96,12 +96,12 @@ const IssueDetails = () => {
             </p>
           </div>
           <div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-5">
-            {user?.role === "user" && issueDetails?.status === "Pending" && (
+            {user?.email === issueDetails?.email && issueDetails?.status === "Pending" && (
               <div className=" grid grid-cols-2 gap-5">
-                <Link className="btn btn-outline btn-primary border-3 shadow-md">
+                <Link to={"/dashboardLayout/myIssue"} className="btn btn-outline btn-primary border-3 shadow-md">
                   Edit Issue
                 </Link>
-                <Link className="btn btn-outline btn-primary border-3 shadow-md">
+                <Link  to={"/dashboardLayout/myIssue"} className="btn btn-outline btn-primary border-3 shadow-md">
                   Delete Issue
                 </Link>
               </div>

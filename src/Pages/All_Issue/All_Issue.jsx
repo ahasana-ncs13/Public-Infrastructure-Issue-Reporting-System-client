@@ -2,27 +2,40 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
 import useAxios from "../../Hooks/useAxios";
 import IssueCard from "./IssueCard";
-
+import Loading from "../../SharedComponent/Loader/Loading";
 
 const All_Issue = () => {
   const axioInstance = useAxios();
   const [search, setSearch] = useState("");
+  const [totalIssue, setTotalIssue] = useState(0);
+  const [totalPage, setTotalPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
   // console.log(search)
-
-  const { data: issues = []} = useQuery({
-    queryKey: ["all-issue", search],
+  const limit = 10;
+  const {
+    data: issues = [],
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["all-issue", search,currentPage],
     queryFn: async () => {
-      const res = await axioInstance.get("/all-issue", {
+      const res = await axioInstance.get(`/all-issue?limit=${limit}&skip=${currentPage * limit}`, {
         params: {
           title: search,
           category: search,
           location: search,
         },
       });
-      return res.data;
-      
+      setTotalIssue(res.data.total);
+      const page = Math.ceil(totalIssue / limit);
+      setTotalPage(page);
+      return res.data.allIssue;
     },
   });
+  refetch();
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
   return (
     <>
       <div className="max-w-150 mx-auto text-center py-10 pt-26">
@@ -77,6 +90,23 @@ const All_Issue = () => {
             No issues found
           </p>
         )}
+      </div>
+      
+      <div className="flex justify-center flex-wrap gap-5 pt-10">
+        {
+          currentPage>0 && <button onClick={()=>setCurrentPage(currentPage-1)} className="btn btn-primary">Prev</button>
+        }
+        
+
+        {[...Array(totalPage).keys()].map((i) => (
+          <button onClick={()=>setCurrentPage(i)} className={`btn ${i===currentPage && "btn-primary"}`} key={i}>
+            {i}
+          </button>
+        ))}
+        {
+          currentPage < totalPage-1 &&  <button onClick={()=>setCurrentPage(currentPage+1)} className="btn btn-primary">Next</button>
+        }
+       
       </div>
     </>
   );

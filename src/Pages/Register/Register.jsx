@@ -17,13 +17,12 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
-  const handleRegister =async (data) => {
+  const handleRegister = async (data) => {
     const profileImg = data.photo[0];
     // console.log(profileImg);
     // console.log(data);
-   await createUser(data.email, data.password)
+    await createUser(data.email, data.password)
       .then((result) => {
-       
         console.log(result.user);
 
         const formData = new FormData();
@@ -33,36 +32,36 @@ const Register = () => {
           import.meta.env.VITE_Img_HostKey
         }`;
 
-      axios.post(img_api_url, formData).then((res) => {
+        axios.post(img_api_url, formData).then((res) => {
           const profile = {
             displayName: data.name,
             photoURL: res.data.data.url,
           };
 
-           UpdateUserProfile(profile)
-            // .then(() => {
-            //   console.log("successfully");
-              
-            // })
-            // .catch((error) => {
-            //   console.log(error);
-            // });
+          UpdateUserProfile(profile);
+          // .then(() => {
+          //   console.log("successfully");
+
+          // })
+          // .catch((error) => {
+          //   console.log(error);
+          // });
 
           const userInfo = {
-          name: data.name,
-          email: data.email,
-          photoURL:res.data.data.url,
-        };
+            name: data.name,
+            email: data.email,
+            photoURL: res.data.data.url,
+            role:data.role
+          };
 
-       axioInstance.post("/users", userInfo);
-        // .then((data) => {
-        //   console.log(data.data);
-        //   return data.data;
-        // });
-         
+          axioInstance.post("/users", userInfo);
+          // .then((data) => {
+          //   console.log(data.data);
+          //   return data.data;
+          // });
         });
 
-         Navigate("/", { replace: true });
+        Navigate("/", { replace: true });
       })
       .catch((error) => {
         console.log(error.message);
@@ -135,6 +134,16 @@ const Register = () => {
                     Photo is required
                   </p>
                 )}
+                {/* role */}
+                <label className="label">Role</label>
+                <select
+                  {...register("role", { required: true })}
+                  className="select select-bordered w-full"
+                >
+                  <option value="">Select Role</option>
+                  <option value="user">User</option>
+                  <option value="staff">Staff</option>
+                </select>
 
                 <button className="btn bg-primary text-white border-none mt-4">
                   Register
