@@ -13,6 +13,8 @@ import CitizenDashboard from "../Dashboard/CitizenDashboard/Dashboard/CitizenDas
 import ReportIssue from "../Dashboard/CitizenDashboard/ReportIssue/ReportIssue";
 import MyIssue from "../Dashboard/CitizenDashboard/MyIssue/MyIssue";
 import UserProfile from "../Dashboard/CitizenDashboard/UserProfile/UserProfile";
+import PaymentSuccess from "../Dashboard/CitizenDashboard/Payment/PaymentSuccess/PaymentSuccess";
+import PaymentCancel from "../Dashboard/CitizenDashboard/Payment/PaymentCancel/PaymentCancel";
 
 export const router = createBrowserRouter([
   {
@@ -67,17 +69,25 @@ export const router = createBrowserRouter([
         Component: CitizenDashboard,
       },
       {
-        path:"/dashboardLayout/reportIssue",
-        Component:ReportIssue
+        path: "/dashboardLayout/reportIssue",
+        Component: ReportIssue,
       },
       {
-        path:"/dashboardLayout/myIssue",
-        Component:MyIssue
+        path: "/dashboardLayout/myIssue",
+        Component: MyIssue,
       },
       {
-        path:"/dashboardLayout/userProfile",
-        Component:UserProfile
-      }
+        path: "/dashboardLayout/userProfile",
+        Component: UserProfile,
+      },
+      {
+        path: "/dashboardLayout/payment-success",
+        Component: PaymentSuccess,
+      },
+      {
+        path: "/dashboardLayout/payment-cancel",
+        Component:PaymentCancel,
+      },
     ],
   },
   {

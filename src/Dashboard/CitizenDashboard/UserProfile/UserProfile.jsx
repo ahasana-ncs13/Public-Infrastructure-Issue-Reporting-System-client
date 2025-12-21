@@ -23,7 +23,7 @@ const UserProfile = () => {
   const handleEditProfileModalOpen = () => {
     // setSelectedIssue(issue);
     reset(currentUser);
-    editProfileModalRef.current?.showModal(); 
+    editProfileModalRef.current?.showModal();
   };
 
   const onSubmit = async (data) => {
@@ -31,7 +31,6 @@ const UserProfile = () => {
     const { _id, ...updateData } = data;
 
     await axiosInstance.patch(`/currentuser/${user?.email}`, updateData);
-    // document.activeElement?.blur();
     editProfileModalRef.current?.close();
     await Swal.fire({
       title: "Successfully!",
@@ -41,8 +40,21 @@ const UserProfile = () => {
 
     refetch();
   };
-  //   axiosInstance.patch(`/currentuser/${user?.email}`,)
   console.log(currentUser);
+
+  const handlePayment = async () => {
+    const paymentInfo = {
+      email: currentUser.email,
+      PremiumUser_id: currentUser._id,
+    };
+
+    const res = await axiosInstance.post(
+      "/create-checkout-session",
+      paymentInfo
+    );
+    console.log(res.data);
+    window.location.assign(res.data.url);
+  };
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -63,10 +75,21 @@ const UserProfile = () => {
             {/* User Info */}
             <div className="text-center sm:text-left w-full">
               <div className="flex justify-between">
-                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold">
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold flex items-center gap-2">
                   {currentUser?.name || user.displayName}
+
+                  {currentUser?.isPremium && (
+                    <span className="badge badge-warning"> Premium</span>
+                  )}
                 </h2>
-                <button className="btn btn-secondary">Subscribe</button>
+                {!currentUser?.isPremium && (
+                  <button
+                    onClick={handlePayment}
+                    className="btn btn-secondary font-bold"
+                  >
+                    Subscribe (1000tk)
+                  </button>
+                )}
               </div>
               <p className="text-sm sm:text-base text-gray-500 break-all">
                 {currentUser?.email || user.email}
@@ -101,6 +124,15 @@ const UserProfile = () => {
                   : "N/A"}
               </p>
             </div>
+
+            <div className="bg-base-200 rounded-lg p-3 sm:p-4">
+              <p className="text-gray-500">premium Since</p>
+              <p className="font-medium">
+                {currentUser?.premiumSince
+                  ? new Date(currentUser.premiumSince).toLocaleString()
+                  : "N/A"}
+              </p>
+            </div>
           </div>
 
           {/* ===== Actions ===== */}
@@ -118,7 +150,7 @@ const UserProfile = () => {
             >
               <div className="modal-box">
                 <div className="">
-                    {/* eslint-disable-next-line react-hooks/refs */}
+                  {/* eslint-disable-next-line react-hooks/refs */}
                   <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                     <div>
                       <label className="label">Name</label>

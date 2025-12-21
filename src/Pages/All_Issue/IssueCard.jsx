@@ -3,25 +3,40 @@ import { FaRegThumbsUp } from "react-icons/fa";
 import { Link, Navigate, useNavigate } from "react-router";
 import useAuth from "../../Hooks/useAuth";
 import useAxios from "../../Hooks/useAxios";
+import Swal from "sweetalert2";
 
-
-const IssueCard = ({ issue}) => {
-  const axioInstance =useAxios()
-  const {user}=useAuth()
-  const Navigate =useNavigate()
+const IssueCard = ({ issue }) => {
+  const axioInstance = useAxios();
+  const { user } = useAuth();
+  const Navigate = useNavigate();
   const [upvotes, setUpvotes] = useState(issue.upvotes);
+  const [hasUpvoted, setHasUpvoted] = useState(
+    issue.upvotedBy?.includes(user?.email)
+  );
 
-  const handleUpvote =async () => {
-    if (user) {
-       setUpvotes((vote) => vote + 1);
-       await axioInstance.patch(`/all-issue/${issue._id}`)
+  const handleUpvote = async () => {
+    if (!user) {
+      Navigate("/loginlayout/login");
+      return;
     }
-    else{
-      Navigate('/loginlayout/login')
+    if (user?.email === issue.email) {
+      Swal.fire("Oops!", "You cannot upvote your own issue", "warning");
+      return
     }
-   
-    // .then(data => )
-    // Here you can also call an API to update the backend
+    if (hasUpvoted) {
+      Swal.fire("Oops!", "You already upvoted", "warning");
+      return
+    }
+
+    const res = await axioInstance.patch(`/all-issue/${issue._id}`, {
+      email: user.email,
+    });
+
+    if (res.data?.message === "Upvoted successfully") {
+      setUpvotes((vote) => vote + 1);
+      setHasUpvoted(true);
+      Swal.fire("Success!", "You upvoted this issue", "success");
+    }
   };
 
   return (

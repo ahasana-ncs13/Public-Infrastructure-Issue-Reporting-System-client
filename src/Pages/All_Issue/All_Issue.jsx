@@ -2,34 +2,31 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
 import useAxios from "../../Hooks/useAxios";
 import IssueCard from "./IssueCard";
-import useAuth from "../../Hooks/useAuth";
 import Loading from "../../SharedComponent/Loader/Loading";
 
 const All_Issue = () => {
-  const { loading, setLoading } = useAuth();
   const axioInstance = useAxios();
-  const [search, setSearch] = useState([]);
+  const [search, setSearch] = useState("");
   // console.log(search)
 
-  const { data: issues = [] } = useQuery({
+  const { data: issues = []} = useQuery({
     queryKey: ["all-issue", search],
     queryFn: async () => {
       const res = await axioInstance.get("/all-issue", {
         params: {
-           title: search,
-           category: search,
-           location: search,
-
+          title: search,
+          category: search,
+          location: search,
         },
       });
-      setLoading(false);
       return res.data;
+      
     },
   });
+  // if (isLoading) {
+  //       return <Loading></Loading>;
+  //     }
 
-  if (loading) {
-    return <Loading></Loading>;
-  }
   return (
     <>
       <div className="max-w-150 mx-auto text-center py-10 pt-26">

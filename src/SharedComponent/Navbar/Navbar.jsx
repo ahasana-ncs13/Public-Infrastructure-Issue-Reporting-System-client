@@ -2,9 +2,12 @@ import React from "react";
 import { Link, NavLink } from "react-router";
 import Logo from "./Logo";
 import useAuth from "../../Hooks/useAuth";
+import { useQuery } from "@tanstack/react-query";
+import useAxios from "../../Hooks/useAxios";
 
 const Navbar = () => {
   const { signOutUser, user } = useAuth();
+  const axiosInstance=useAxios()
   const links = (
     <>
       <li>
@@ -27,15 +30,21 @@ const Navbar = () => {
       });
   };
 
-  const handleProfile = () => {};
+   const { data: currentUser = []} = useQuery({
+    queryKey: ["userprofile", user?.email],
+    queryFn: async () => {
+      const res = await axiosInstance.get(`/currentuser/${user?.email}`);
+      return res.data;
+    },
+  });
 
   const dropdown = (
     <>
-      <div onClick={handleProfile} className="dropdown dropdown-end">
+      <div  className="dropdown dropdown-end">
         {/* Avatar */}
         <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
           <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-            <img src={user?.photoURL} alt="profile" />
+            <img src={currentUser.photoURL || user?.photoURL} alt="profile" />
           </div>
         </label>
 
@@ -50,14 +59,15 @@ const Navbar = () => {
               <div className="avatar">
                 <div className="w-10 rounded-full">
                   <img
-                    src={user?.photoURL}
+                    src={currentUser.photoURL || user?.photoURL}
                     alt="profile"
                   />
                 </div>
               </div>
               <div>
-                <p className="font-semibold text-sm">{user?.displayName}</p>
-                <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+                <p className="font-semibold text-sm">{currentUser.name||user?.displayName} <span>{currentUser.isPremium && <span className="badge badge-warning"> Premium</span>}</span></p>
+
+                <p className="text-xs text-gray-500 truncate">{currentUser.email || user?.email}</p>
               </div>
             </div>
           </li>

@@ -262,8 +262,6 @@ const MyIssue = () => {
                   className="select select-bordered w-full"
                 >
                   <option>Normal</option>
-                  <option>Medium</option>
-                  <option>High</option>
                 </select>
               </div>
 
