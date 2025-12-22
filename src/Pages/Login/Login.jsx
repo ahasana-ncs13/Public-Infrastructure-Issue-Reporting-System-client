@@ -10,11 +10,11 @@ const Login = () => {
   const { loginUser} = useAuth();
   const { register, handleSubmit,formState: { errors } } = useForm();
   const handleLogin = (data) => {
-    console.log(data);
+    // console.log(data);
     loginUser(data.email, data.password)
       .then((result) => {
         Navigate("/")
-        console.log(result.user);
+        // console.log(result.user);
       })
       .catch((error) => {
         console.log(error.message());

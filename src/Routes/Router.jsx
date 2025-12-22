@@ -15,6 +15,9 @@ import MyIssue from "../Dashboard/CitizenDashboard/MyIssue/MyIssue";
 import UserProfile from "../Dashboard/CitizenDashboard/UserProfile/UserProfile";
 import PaymentSuccess from "../Dashboard/CitizenDashboard/Payment/PaymentSuccess/PaymentSuccess";
 import PaymentCancel from "../Dashboard/CitizenDashboard/Payment/PaymentCancel/PaymentCancel";
+import AdminDashboard from "../Dashboard/AdminDashboard/AdminDashboard";
+import AdminRoute from "./AdminRoutes";
+import Forbidden from "../SharedComponent/ErrorPage/Forbidden";
 
 export const router = createBrowserRouter([
   {
@@ -88,7 +91,17 @@ export const router = createBrowserRouter([
         path: "/dashboardLayout/payment-cancel",
         Component:PaymentCancel,
       },
+      {
+        path:"/dashboardLayout/adminDashboard",
+        element:<AdminRoute>
+        <AdminDashboard></AdminDashboard>
+        </AdminRoute>
+      }
     ],
+  },
+  {
+    path:"/forbidden",
+    Component:Forbidden,
   },
   {
     path: "*",

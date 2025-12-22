@@ -1,12 +1,28 @@
 import React from "react";
 import { Link, Outlet } from "react-router";
-import { MdAssignmentAdd, MdDashboard, MdOutlineCelebration } from "react-icons/md";
+import {
+  MdAssignmentAdd,
+  MdDashboard,
+  MdOutlineCelebration,
+} from "react-icons/md";
 import { IoHome } from "react-icons/io5";
-import useAuth from "../../Hooks/useAuth";
 import { FaClipboardList } from "react-icons/fa";
+import useAuth from "../../Hooks/useAuth";
+import { useQuery } from "@tanstack/react-query";
+import useAxios from "../../Hooks/useAxios";
 
 const DashboardLayout = () => {
   const { user } = useAuth();
+  const axiosInstance = useAxios();
+
+  const { data: currentUser = [] } = useQuery({
+    queryKey: ["userprofile", user?.email],
+    queryFn: async () => {
+      const res = await axiosInstance.get(`/currentuser/${user?.email}`);
+      return res.data;
+    },
+  });
+
   return (
     <div>
       <div className="drawer lg:drawer-open min-h-screen">
@@ -46,7 +62,10 @@ const DashboardLayout = () => {
             <div className="mb-6">
               <div className="card bg-linear-to-r from-primary to-secondary text-primary-content shadow-md">
                 <div className="card-body items-center text-center">
-                  <h1 className="text-2xl md:text-3xl flex gap-2 items-center font-bold">Welcome<MdOutlineCelebration /> </h1> 
+                  <h1 className="text-2xl md:text-3xl flex gap-2 items-center font-bold">
+                    Welcome
+                    <MdOutlineCelebration />{" "}
+                  </h1>
                   <p className="text-sm md:text-base opacity-90">
                     Manage your activities and track progress from your
                     dashboard
@@ -71,20 +90,68 @@ const DashboardLayout = () => {
       is-drawer-close:w-14 is-drawer-open:w-64 p-2"
           >
             {/* ---------- Menu ---------- */}
-            <ul className="menu w-full grow">
-              <li>
+
+            {currentUser?.role === "user" && (
+              <ul className="menu w-full grow">
+                <li>
+                  <Link
+                    to="/"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Dashboard"
+                  >
+                    <IoHome />{" "}
+                    <span className="is-drawer-close:hidden">Home</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/dashboardLayout/citizenDashboard"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Dashboard"
+                  >
+                    <MdDashboard />
+                    <span className="is-drawer-close:hidden">Dashboard</span>
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to="/dashboardLayout/myIssue"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="My Issues"
+                  >
+                    <FaClipboardList />
+                    <span className="is-drawer-close:hidden">My Issues</span>
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to="/dashboardLayout/reportIssue"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Report Issue"
+                  >
+                    <MdAssignmentAdd />
+                    <span className="is-drawer-close:hidden">Report Issue</span>
+                  </Link>
+                </li>
+              </ul>
+            )}
+            {currentUser?.role === "Admin" && (
+              <ul className="menu w-full grow">
+                <li>
+                  <Link
+                    to="/"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Dashboard"
+                  >
+                    <IoHome />{" "}
+                    <span className="is-drawer-close:hidden">Home</span>
+                  </Link>
+                </li>
+                <li>
                 <Link
-                  to="/"
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                  data-tip="Dashboard"
-                >
-                  <IoHome />{" "}
-                  <span className="is-drawer-close:hidden">Home</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/dashboardLayout/citizenDashboard"
+                  to="/dashboardLayout/adminDashboard"
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                   data-tip="Dashboard"
                 >
@@ -93,7 +160,7 @@ const DashboardLayout = () => {
                 </Link>
               </li>
 
-              <li>
+                {/* <li>
                 <Link
                   to="/dashboardLayout/myIssue"
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
@@ -102,9 +169,9 @@ const DashboardLayout = () => {
                   <FaClipboardList />
                   <span className="is-drawer-close:hidden">My Issues</span>
                 </Link>
-              </li>
+              </li> */}
 
-              <li>
+                {/* <li>
                 <Link
                   to="/dashboardLayout/reportIssue"
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
@@ -113,9 +180,9 @@ const DashboardLayout = () => {
                   <MdAssignmentAdd />
                   <span className="is-drawer-close:hidden">Report Issue</span>
                 </Link>
-              </li>
-
-            </ul>
+              </li> */}
+              </ul>
+            )}
 
             {/* ---------- Avatar (Bottom) ---------- */}
             <div className="dropdown dropdown-top w-full">

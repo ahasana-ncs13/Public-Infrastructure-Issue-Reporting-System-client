@@ -12,12 +12,12 @@ const GoogleAuthentication = () => {
     .then(result=>{
          axioInstance.post("/users",result.user)
         .then(data=>{
-          console.log(data.data)
+        //   console.log(data.data)
           return data.data
         })
 
         navigate("/")
-        console.log(result.user);
+        // console.log(result.user);
         
     })
     .catch(error=>{

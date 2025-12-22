@@ -22,9 +22,9 @@ const ReportIssue = () => {
   });
 
   const handleIssueForm = async (data) => {
-    console.log(data);
+    // console.log(data);
     const profileImg = data.image[0];
-    console.log(profileImg);
+    // console.log(profileImg);
     const formData = new FormData();
     formData.append("image", profileImg);
 
@@ -58,7 +58,7 @@ const ReportIssue = () => {
     return <Loading></Loading>;
   }
 
-  console.log(issueData);
+  // console.log(issueData);
 
   return (
     <div className="max-w-3xl mx-auto bg-base-200 rounded-xl shadow-md p-6 md:p-8">

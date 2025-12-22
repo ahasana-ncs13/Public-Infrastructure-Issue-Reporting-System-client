@@ -23,7 +23,7 @@ const Register = () => {
     // console.log(data);
     await createUser(data.email, data.password)
       .then((result) => {
-        console.log(result.user);
+        // console.log(result.user);
 
         const formData = new FormData();
         formData.append("image", profileImg);

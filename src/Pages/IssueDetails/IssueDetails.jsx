@@ -28,7 +28,7 @@ const IssueDetails = () => {
       "/create-checkout-session-boost",
       paymentInfo
     );
-    console.log(res.data);
+    // console.log(res.data);
     window.location.assign(res.data.url);
   };
 

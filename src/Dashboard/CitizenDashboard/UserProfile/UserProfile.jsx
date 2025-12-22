@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 
 const UserProfile = () => {
   const { user } = useAuth();
-  console.log(user);
+  // console.log(user);
   const axiosInstance = useAxios();
   const { register, handleSubmit, reset } = useForm();
   const editProfileModalRef = useRef(null);
@@ -27,7 +27,7 @@ const UserProfile = () => {
   };
 
   const onSubmit = async (data) => {
-    console.log("Updated Issue Data:", data);
+    // console.log("Updated Issue Data:", data);
     const { _id, ...updateData } = data;
 
     await axiosInstance.patch(`/currentuser/${user?.email}`, updateData);
@@ -40,7 +40,7 @@ const UserProfile = () => {
 
     refetch();
   };
-  console.log(currentUser);
+  // console.log(currentUser);
 
   const handlePayment = async () => {
     const paymentInfo = {
@@ -52,7 +52,7 @@ const UserProfile = () => {
       "/create-checkout-session",
       paymentInfo
     );
-    console.log(res.data);
+    // console.log(res.data);
     window.location.assign(res.data.url);
   };
 

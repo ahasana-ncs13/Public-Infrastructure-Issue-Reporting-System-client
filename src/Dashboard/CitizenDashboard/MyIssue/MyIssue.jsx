@@ -28,7 +28,7 @@ const MyIssue = () => {
   };
 
   const onSubmit = async (data) => {
-    console.log("Updated Issue Data:", data);
+    // console.log("Updated Issue Data:", data);
     const { _id, ...updateData } = data;
 
     await axiosInstance.patch(`/myissue/${selectedIssue._id}`, updateData);
@@ -44,7 +44,7 @@ const MyIssue = () => {
   };
 
   const handleDelete = async(m) => {
-    console.log(m);
+    // console.log(m);
 
     await Swal.fire({
       title: "Are you sure?",
