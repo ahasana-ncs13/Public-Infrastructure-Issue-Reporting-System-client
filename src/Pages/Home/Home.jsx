@@ -5,17 +5,27 @@ import HowItWorks from './HomeComponent/HowItWorks';
 import Statistics from './HomeComponent/Statistics';
 import TrustPrinciples from './HomeComponent/TrustPrinciples';
 import LatestIssue from './HomeComponent/LatestIssue';
-
+import ProblemCategories from './HomeComponent/ProblemCategories';
+import WhyThisPlatformMatters from './HomeComponent/WhyThisPlatformMatters';
+import UserTestimonials from './HomeComponent/UserTestimonials';
+import AuthorityPartners from './HomeComponent/AuthorityPartners';
+import FAQ from './HomeComponent/FAQ';
 
 const Home = () => {
     return (
-        <div className='w-11/12 mx-auto pt-16'>
-            <Banner></Banner>
-            <LatestIssue></LatestIssue>
-            <Features></Features>
-            <HowItWorks></HowItWorks>
-            <Statistics></Statistics>
-            <TrustPrinciples></TrustPrinciples>
+        <div className='w-11/12 mx-auto pt-16 space-y-20'>
+            <Banner />
+            <ProblemCategories />
+            <Features />
+            <HowItWorks />
+            <WhyThisPlatformMatters />
+            <LatestIssue />
+            <Statistics />
+            <UserTestimonials />
+            <AuthorityPartners />
+            <TrustPrinciples />
+            <FAQ />  
+            
         </div>
     );
 };

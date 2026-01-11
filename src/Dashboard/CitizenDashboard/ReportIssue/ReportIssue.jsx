@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 import useAuth from "../../../Hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../../SharedComponent/Loader/Loading";
+import axios from "axios";
 
 const ReportIssue = () => {
   const { user } = useAuth();
@@ -31,7 +32,7 @@ const ReportIssue = () => {
     const img_api_url = `https://api.imgbb.com/1/upload?key=${
       import.meta.env.VITE_Img_HostKey
     }`;
-    const res = await axiosInstance.post(img_api_url, formData);
+    const res = await axios.post(img_api_url, formData);
 
     const issuePayload = {
       title: data.title,
@@ -42,7 +43,7 @@ const ReportIssue = () => {
       email: user?.email, // send image URL
     };
 
-    axiosInstance.post("/reportissue", issuePayload);
+    await axiosInstance.post("/reportissue", issuePayload);
     navigate("/dashboardLayout/myIssue");
   };
 
