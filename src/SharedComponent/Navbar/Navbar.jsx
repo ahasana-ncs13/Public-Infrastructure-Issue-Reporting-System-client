@@ -7,29 +7,67 @@ import useAxios from "../../Hooks/useAxios";
 
 const Navbar = () => {
   const { signOutUser, user } = useAuth();
-  const axiosInstance=useAxios()
+  const axiosInstance = useAxios();
+
   const links = (
     <>
       <li>
-        <NavLink to="/"> Home</NavLink>
+        <NavLink
+          to="/"
+          className={({ isActive }) => `${isActive && "underline"} mr-2`}
+        >
+          Home
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/all-issue"> All Issues</NavLink>
+        <NavLink
+          to="/all-issue"
+          className={({ isActive }) => `${isActive && "underline"} mr-2`}
+        >
+          All Issues
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/allblogs"> Blogs</NavLink>
+        <NavLink
+          to="/helpcenter"
+          className={({ isActive }) => `${isActive && "underline"} mr-2`}
+        >
+          HelpCenter
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/feedback"> Feedback</NavLink>
+        <NavLink
+          to="/legalpage"
+          className={({ isActive }) => `${isActive && "underline"} mr-2`}
+        >
+          Legal & Policy
+        </NavLink>
       </li>
-      <li>
-        <NavLink to="/helpcenter"> HelpCenter</NavLink>
-      </li>
-      <li>
-        <NavLink to="/legalpage"> Legal & Policy</NavLink>
-      </li>
+
+      {user && (
+        <>
+          <li>
+            <NavLink
+              to="/allblogs"
+              className={({ isActive }) => `${isActive && "underline"} mr-2`}
+            >
+              Blogs
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/feedback"
+              className={({ isActive }) => `${isActive && "underline"} mr-2`}
+            >
+              Feedback
+            </NavLink>
+          </li>
+        </>
+      )}
     </>
   );
+
+  // export default Links;
 
   const handleLogout = () => {
     signOutUser()
@@ -39,7 +77,7 @@ const Navbar = () => {
       });
   };
 
-   const { data: currentUser = []} = useQuery({
+  const { data: currentUser = [] } = useQuery({
     queryKey: ["userprofile", user?.email],
     queryFn: async () => {
       const res = await axiosInstance.get(`/currentuser/${user?.email}`);
@@ -49,7 +87,7 @@ const Navbar = () => {
 
   const dropdown = (
     <>
-      <div  className="dropdown dropdown-end">
+      <div className="dropdown dropdown-end">
         {/* Avatar */}
         <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
           <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
@@ -74,9 +112,18 @@ const Navbar = () => {
                 </div>
               </div>
               <div>
-                <p className="font-semibold text-sm">{currentUser.name||user?.displayName} <span>{currentUser.isPremium && <span className="badge badge-warning"> Premium</span>}</span></p>
+                <p className="font-semibold text-sm">
+                  {currentUser.name || user?.displayName}{" "}
+                  <span>
+                    {currentUser.isPremium && (
+                      <span className="badge badge-warning"> Premium</span>
+                    )}
+                  </span>
+                </p>
 
-                <p className="text-xs text-gray-500 truncate">{currentUser.email || user?.email}</p>
+                <p className="text-xs text-gray-500 truncate">
+                  {currentUser.email || user?.email}
+                </p>
               </div>
             </div>
           </li>

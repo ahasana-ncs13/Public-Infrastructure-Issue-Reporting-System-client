@@ -10,6 +10,7 @@ import WhyThisPlatformMatters from './HomeComponent/WhyThisPlatformMatters';
 import UserTestimonials from './HomeComponent/UserTestimonials';
 import AuthorityPartners from './HomeComponent/AuthorityPartners';
 import FAQ from './HomeComponent/FAQ';
+import CTA from './HomeComponent/CTA';
 
 const Home = () => {
     return (
@@ -25,6 +26,7 @@ const Home = () => {
             <AuthorityPartners />
             <TrustPrinciples />
             <FAQ />  
+            <CTA/>
             
         </div>
     );
