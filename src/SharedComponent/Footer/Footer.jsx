@@ -1,13 +1,12 @@
 import React from "react";
 import { Link } from "react-router";
 import {
-  FaFacebookF,
   FaTwitter,
-  FaLinkedinIn,
-  FaGithub,
   FaEnvelope,
   FaPhoneAlt,
   FaMapMarkerAlt,
+  FaFacebook,
+  FaInstagram,
 } from "react-icons/fa";
 
 const Footer = () => {
@@ -69,17 +68,17 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/report" className="hover:text-primary transition">
+                <Link to="/dashboardLayout/reportIssue" className="hover:text-primary transition">
                   Report Issue
                 </Link>
               </li>
               <li>
-                <Link to="/issues" className="hover:text-primary transition">
-                  Track Issues
+                <Link to="/dashboardLayout/myIssue" className="hover:text-primary transition">
+                  My Issue
                 </Link>
               </li>
               <li>
-                <Link to="/dashboard" className="hover:text-primary transition">
+                <Link to="/dashboardLayout/citizenDashboard" className="hover:text-primary transition">
                   Dashboard
                 </Link>
               </li>
@@ -117,24 +116,19 @@ const Footer = () => {
             © {new Date().getFullYear()} CivicFix. All rights reserved.
           </p>
 
-          {/* Social Icons */}
-          <div className="flex gap-4">
-            <a className="btn btn-circle btn-sm btn-outline text-white">
-              <FaFacebookF />
-            </a>
-            <a className="btn btn-circle btn-sm btn-outline text-white">
-              <FaTwitter />
-            </a>
-            <a className="btn btn-circle btn-sm btn-outline text-white">
-              <FaLinkedinIn />
-            </a>
-            <a className="btn btn-circle btn-sm btn-outline text-white">
-              <FaGithub />
-            </a>
+            {/* Social Links */}
+        <div>
+          <h3 className="text-lg font-semibold text-white mb-3">Follow Us</h3>
+          <div className="flex space-x-4">
+            <a href="https://facebook.com" target="_blank"  className="hover:text-white"><FaFacebook size={20} /></a>
+            <a href="https://twitter.com" 
+    target="_blank"  className="hover:text-white"><FaTwitter size={20} /></a>
+            <a href="https://instagram.com" 
+    target="_blank"  className="hover:text-white"><FaInstagram size={20} /></a>
           </div>
         </div>
-
       </div>
+        </div>
     </footer>
   );
 };

@@ -6,18 +6,58 @@ import GoogleAuthentication from "../../SharedComponent/Google/GoogleAuthenticat
 import Loading from "../../SharedComponent/Loader/Loading";
 
 const Login = () => {
-  const Navigate=useNavigate()
-  const { loginUser} = useAuth();
-  const { register, handleSubmit,formState: { errors } } = useForm();
+  const DEMO_USER = {
+    email: "ahasana@sana.com",
+    password: "123456Ab$",
+  };
+  const DEMO_ADMIN = {
+    email: "sifat@sabid.com",
+    password: "123456Sa$",
+  };
+  const Navigate = useNavigate();
+  const { loginUser } = useAuth();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
   const handleLogin = (data) => {
     // console.log(data);
     loginUser(data.email, data.password)
       .then((result) => {
-        Navigate("/")
+        Navigate("/");
         // console.log(result.user);
       })
       .catch((error) => {
         console.log(error.message());
+      });
+  };
+
+  const handleDemoLoginUser = () => {
+    setValue("email", DEMO_USER.email);
+    setValue("password", DEMO_USER.password);
+
+    // Optional: auto login after fill
+    loginUser(DEMO_USER.email, DEMO_USER.password)
+      .then(() => {
+        Navigate("/");
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+  const handleDemoLoginAdmin = () => {
+    setValue("email", DEMO_ADMIN.email);
+    setValue("password", DEMO_ADMIN.password);
+
+    // Optional: auto login after fill
+    loginUser(DEMO_ADMIN.email, DEMO_ADMIN.password)
+      .then(() => {
+        Navigate("/");
+      })
+      .catch((error) => {
+        console.log(error.message);
       });
   };
   return (
@@ -33,20 +73,28 @@ const Login = () => {
                 <label className="label">Email</label>
                 <input
                   type="email"
-                  {...register("email",{ required: true})}
+                  {...register("email", { required: true })}
                   className="input"
                   placeholder="Email"
                 />
-                {errors.email && <p className="text-red-500 font-semibold">Email is required</p>}
+                {errors.email && (
+                  <p className="text-red-500 font-semibold">
+                    Email is required
+                  </p>
+                )}
 
                 <label className="label">Password</label>
                 <input
                   type="password"
-                  {...register("password",{ required: true})}
+                  {...register("password", { required: true })}
                   className="input"
                   placeholder="Password"
                 />
-                {errors.email && <p className="text-red-500 font-semibold">Password is required</p>}
+                {errors.email && (
+                  <p className="text-red-500 font-semibold">
+                    Password is required
+                  </p>
+                )}
 
                 <div>
                   <a className="link link-hover">Forgot password?</a>
@@ -54,10 +102,24 @@ const Login = () => {
                 <button className="btn bg-primary text-white border-none mt-4">
                   Login
                 </button>
+                <button
+                  type="button"
+                  onClick={handleDemoLoginUser}
+                  className="btn btn-outline btn-primary w-full mt-2"
+                >
+                  Demo Login as User
+                </button>
+                <button
+                  type="button"
+                  onClick={handleDemoLoginAdmin}
+                  className="btn btn-outline btn-primary w-full mt-2"
+                >
+                  Demo Login as Admin
+                </button>
               </fieldset>
             </form>
 
-           <GoogleAuthentication></GoogleAuthentication>
+            <GoogleAuthentication></GoogleAuthentication>
             <p>
               Don't Have An Account ?{" "}
               <Link

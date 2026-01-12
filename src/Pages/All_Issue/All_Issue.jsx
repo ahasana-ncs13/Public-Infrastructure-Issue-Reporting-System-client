@@ -80,7 +80,7 @@ const All_Issue = () => {
           <option value="garbage">category</option>
         </select>
       </div>
-      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 w-11/12 mx-auto gap-10">
+      <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 w-11/12 mx-auto gap-10">
         {issues.length > 0 ? (
           issues.map((issue) => (
             <IssueCard key={issue._id} issue={issue}></IssueCard>
