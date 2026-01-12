@@ -102,8 +102,8 @@ const Feedback = () => {
   };
 
   return (
-    <div className="bg-blue-50">
-    <div className="max-w-4xl mx-auto px-4 py-10 pt-26 ">
+    <div className="bg-blue-50 w-11/12 mx-auto">
+    <div className="max-w-4xl mx-auto px-4 py-10 mt-36 ">
       <h1 className="text-3xl font-bold text-center mb-8">
         Feedback & Ratings
       </h1>

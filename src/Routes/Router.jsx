@@ -21,6 +21,8 @@ import Forbidden from "../SharedComponent/ErrorPage/Forbidden";
 import LegalPage from "../Pages/ExtraPage/LegalPage";
 import HelpCenter from "../Pages/ExtraPage/HelpCenter";
 import Feedback from "../Pages/ExtraPage/Feedback";
+import Blog from "../Pages/Blogs/Blog";
+import BlogDetails from "../Pages/Blogs/BlogDetails";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +38,15 @@ export const router = createBrowserRouter([
         path: "/all-issue",
         Component: All_Issue,
       },
+      {
+        path: "/allblogs",
+        Component: Blog,
+      },
+      {
+        path: "/blogdetails/:id",
+        Component: BlogDetails,
+      },
+
       {
         path: "/feedback",
         element: (
