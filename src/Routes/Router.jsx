@@ -18,6 +18,9 @@ import PaymentCancel from "../Dashboard/CitizenDashboard/Payment/PaymentCancel/P
 import AdminDashboard from "../Dashboard/AdminDashboard/AdminDashboard";
 import AdminRoute from "./AdminRoutes";
 import Forbidden from "../SharedComponent/ErrorPage/Forbidden";
+import LegalPage from "../Pages/ExtraPage/LegalPage";
+import HelpCenter from "../Pages/ExtraPage/HelpCenter";
+import Feedback from "../Pages/ExtraPage/Feedback";
 
 export const router = createBrowserRouter([
   {
@@ -34,12 +37,23 @@ export const router = createBrowserRouter([
         Component: All_Issue,
       },
       {
-        path: "/issue-details/:id",
+        path: "/feedback",
         element: (
-          <PrivateRoutes>
-            <IssueDetails></IssueDetails>
-          </PrivateRoutes>
-        ),
+      <PrivateRoutes>
+        <Feedback></Feedback>
+      </PrivateRoutes>)
+      },
+      {
+        path: "/helpcenter",
+        Component: HelpCenter,
+      },
+      {
+        path: "/legalpage",
+        Component: LegalPage,
+      },
+      {
+        path: "/issue-details/:id",
+        element: <IssueDetails></IssueDetails>,
       },
     ],
   },
@@ -89,19 +103,21 @@ export const router = createBrowserRouter([
       },
       {
         path: "/dashboardLayout/payment-cancel",
-        Component:PaymentCancel,
+        Component: PaymentCancel,
       },
       {
-        path:"/dashboardLayout/adminDashboard",
-        element:<AdminRoute>
-        <AdminDashboard></AdminDashboard>
-        </AdminRoute>
-      }
+        path: "/dashboardLayout/adminDashboard",
+        element: (
+          <AdminRoute>
+            <AdminDashboard></AdminDashboard>
+          </AdminRoute>
+        ),
+      },
     ],
   },
   {
-    path:"/forbidden",
-    Component:Forbidden,
+    path: "/forbidden",
+    Component: Forbidden,
   },
   {
     path: "*",

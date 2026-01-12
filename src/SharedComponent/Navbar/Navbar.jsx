@@ -16,6 +16,15 @@ const Navbar = () => {
       <li>
         <NavLink to="/all-issue"> All Issues</NavLink>
       </li>
+      <li>
+        <NavLink to="/feedback"> Feedback</NavLink>
+      </li>
+      <li>
+        <NavLink to="/helpcenter"> HelpCenter</NavLink>
+      </li>
+      <li>
+        <NavLink to="/legalpage"> Legal & Policy</NavLink>
+      </li>
     </>
   );
 
