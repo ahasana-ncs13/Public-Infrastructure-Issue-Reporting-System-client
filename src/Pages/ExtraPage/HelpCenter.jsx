@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
-// Sample help center data with categories
 const helpCategories = {
   "Getting Started": [
     {
@@ -58,16 +57,18 @@ const HelpCenter = () => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-10 pt-26">
-      <h1 className="text-3xl font-bold mb-6 text-center">Help Center</h1>
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-10 pt-24 sm:pt-26">
+      <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-center">
+        Help Center
+      </h1>
 
       {/* Category Tabs */}
-      <div className="flex justify-center mb-8 space-x-4 overflow-x-auto">
+      <div className="flex gap-3 sm:gap-4 mb-6 sm:mb-8 overflow-x-auto scrollbar-hide justify-start sm:justify-center">
         {Object.keys(helpCategories).map((category) => (
           <button
             key={category}
             onClick={() => setActiveCategory(category)}
-            className={`px-4 py-2 font-medium rounded-md transition whitespace-nowrap ${
+            className={`px-3 sm:px-4 py-2 text-sm sm:text-base font-medium rounded-md transition whitespace-nowrap ${
               activeCategory === category
                 ? "bg-blue-600 text-white"
                 : "bg-gray-200 text-gray-700 hover:bg-gray-300"
@@ -79,7 +80,7 @@ const HelpCenter = () => {
       </div>
 
       {/* Articles Accordion */}
-      <div className="space-y-4">
+      <div className="space-y-3 sm:space-y-4">
         {helpCategories[activeCategory].map((article) => (
           <div
             key={article.id}
@@ -88,38 +89,47 @@ const HelpCenter = () => {
             {/* Accordion Header */}
             <button
               onClick={() => toggleArticle(article.id)}
-              className="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none"
+              className="w-full px-4 sm:px-6 py-3 sm:py-4 text-left flex justify-between items-center"
             >
-              <h2 className="text-lg font-semibold">{article.title}</h2>
+              <h2 className="text-base sm:text-lg font-semibold">
+                {article.title}
+              </h2>
               {openArticles[article.id] ? (
-                <FaChevronUp className="text-gray-600" />
+                <FaChevronUp className="text-gray-600 shrink-0" />
               ) : (
-                <FaChevronDown className="text-gray-600" />
+                <FaChevronDown className="text-gray-600 shrink-0" />
               )}
             </button>
 
             {/* Accordion Content */}
             {openArticles[article.id] && (
-              <div className="px-6 pb-6 transition-all duration-300">
+              <div className="px-4 sm:px-6 pb-4 sm:pb-6 transition-all duration-300">
                 {article.type === "video" && (
                   <video
                     src={article.url}
                     controls
-                    className="w-full rounded-md mb-4"
+                    className="w-full rounded-md mb-4 max-h-[300px] object-contain"
                   />
                 )}
+
                 {article.type === "image" && (
                   <img
                     src={article.url}
                     alt={article.title}
-                    className="w-full rounded-md mb-4"
+                    className="w-full rounded-md mb-4 max-h-[300px] object-contain"
                   />
                 )}
+
                 {article.type === "text" && (
-                  <p className="text-gray-700 mb-4">{article.content}</p>
+                  <p className="text-sm sm:text-base text-gray-700 mb-3">
+                    {article.content}
+                  </p>
                 )}
+
                 {article.description && (
-                  <p className="text-gray-600">{article.description}</p>
+                  <p className="text-sm text-gray-600">
+                    {article.description}
+                  </p>
                 )}
               </div>
             )}

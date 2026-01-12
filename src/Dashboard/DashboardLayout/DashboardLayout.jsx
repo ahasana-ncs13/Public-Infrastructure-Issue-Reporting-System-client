@@ -6,7 +6,7 @@ import {
   MdOutlineCelebration,
 } from "react-icons/md";
 import { IoHome } from "react-icons/io5";
-import { FaClipboardList } from "react-icons/fa";
+import { FaClipboardList, FaUser } from "react-icons/fa";
 import useAuth from "../../Hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../Hooks/useAxios";
@@ -160,16 +160,16 @@ const DashboardLayout = () => {
                 </Link>
               </li>
 
-                {/* <li>
+                <li>
                 <Link
-                  to="/dashboardLayout/myIssue"
+                  to="/dashboardLayout/manageusers"
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                   data-tip="My Issues"
                 >
-                  <FaClipboardList />
-                  <span className="is-drawer-close:hidden">My Issues</span>
+                  <FaUser />
+                  <span className="is-drawer-close:hidden">Manage user</span>
                 </Link>
-              </li> */}
+              </li>
 
                 {/* <li>
                 <Link

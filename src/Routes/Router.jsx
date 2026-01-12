@@ -23,6 +23,7 @@ import HelpCenter from "../Pages/ExtraPage/HelpCenter";
 import Feedback from "../Pages/ExtraPage/Feedback";
 import Blog from "../Pages/Blogs/Blog";
 import BlogDetails from "../Pages/Blogs/BlogDetails";
+import ManageUser from "../Dashboard/AdminDashboard/ManageUser/ManageUser";
 
 export const router = createBrowserRouter([
   {
@@ -121,6 +122,14 @@ export const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <AdminDashboard></AdminDashboard>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboardLayout/manageusers",
+        element: (
+          <AdminRoute>
+            <ManageUser></ManageUser>
           </AdminRoute>
         ),
       },

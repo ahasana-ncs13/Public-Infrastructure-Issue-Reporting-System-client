@@ -51,16 +51,13 @@ const Banner = () => {
       description:
         "By providing a centralized reporting system, citizens are empowered to actively participate in improving their city, fostering trust, accountability, and better collaboration between communities and local authorities.",
       image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d",
-    }
+    },
   ];
 
   return (
-    <div className="mt-10 relative w-full h-[60vh] bg-linear-to-r from-secondary via-amber-100 to-primary overflow-hidden rounded-2xl">
+    <div className="mt-6 md:mt-10 relative w-full h-[70vh] sm:h-[65vh] lg:h-[60vh] bg-linear-to-r from-secondary via-amber-100 to-primary overflow-hidden rounded-2xl">
       <Swiper
-        autoplay={{
-          delay: 4000,
-          disableOnInteraction: false,
-        }}
+        autoplay={{ delay: 4000, disableOnInteraction: false }}
         speed={800}
         parallax={true}
         pagination={{ clickable: true }}
@@ -70,28 +67,32 @@ const Banner = () => {
       >
         {sliderData.map((slide) => (
           <SwiperSlide key={slide.id}>
-            <div className="grid grid-cols-1 lg:grid-cols-2 h-full items-center w-11/12 mx-auto gap-8">
-              {/* Text Content */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 h-full items-center w-11/12 mx-auto gap-6 lg:gap-8">
+              {/* Text */}
               <div
-                className="flex flex-col justify-center max-w-2xl p-6"
+                className="flex flex-col justify-center max-w-2xl p-4 sm:p-6"
                 data-swiper-parallax="-300"
               >
-                <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4 animate-fadeIn">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-3 sm:mb-4">
                   {slide.title}
                 </h2>
-                <p className="text-gray-700 mb-6 animate-fadeIn delay-150">
+                <p className="text-gray-700 mb-4 sm:mb-6 text-sm sm:text-base">
                   {slide.description}
                 </p>
-                <button className="bg-primary text-white px-6 py-3 rounded-lg shadow-lg hover:bg-secondary transition-all duration-300 animate-fadeIn delay-300 w-50">
-                  <Link to="/dashboardLayout/reportIssue"> Report an Issue</Link>
-                </button>
+                <Link
+                  to="/dashboardLayout/reportIssue"
+                  className="inline-block bg-primary text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-lg shadow-lg hover:bg-secondary transition-all duration-300 w-fit"
+                >
+                  Report an Issue
+                </Link>
               </div>
+
               {/* Image */}
               <div className="flex justify-center">
                 <img
                   src={slide.image}
                   alt={slide.title}
-                  className="w-full max-w-lg h-50 md:h-80 lg:h-[50vh] object-cover rounded-2xl shadow-lg animate-fadeIn"
+                  className="w-full max-w-sm sm:max-w-md lg:max-w-lg h-48 sm:h-64 md:h-72 lg:h-[50vh] object-cover rounded-2xl shadow-lg"
                   data-swiper-parallax="-100"
                 />
               </div>
@@ -99,7 +100,7 @@ const Banner = () => {
           </SwiperSlide>
         ))}
       </Swiper>
-      {/* Optional subtle gradient overlay for better text readability */}
+
       <div className="absolute inset-0 bg-linear-to-b from-transparent to-white/20 pointer-events-none"></div>
     </div>
   );
