@@ -34,9 +34,7 @@ const containerVariants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-    },
+    transition: { staggerChildren: 0.15 },
   },
 };
 
@@ -51,7 +49,7 @@ const cardVariants = {
 
 const Features = () => {
   return (
-    <section className="py-16 bg-base-100">
+    <section className="py-20 bg-base-100">
       <div className="w-11/12 mx-auto">
 
         {/* Section Header */}
@@ -60,12 +58,12 @@ const Features = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center max-w-3xl mx-auto mb-14"
+          className="text-center max-w-3xl mx-auto mb-16"
         >
           <h2 className="text-4xl font-bold text-primary mb-4">
             Application Features
           </h2>
-          <p className="text-base-content/70">
+          <p className="text-base-content/70 leading-relaxed">
             A digital platform designed to improve transparency, reduce response
             time, and make city service delivery more efficient.
           </p>
@@ -77,22 +75,38 @@ const Features = () => {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
         >
           {features.map((item, index) => (
             <motion.div
               key={index}
               variants={cardVariants}
-              className="card bg-base-200 shadow-md hover:shadow-xl transition"
+              whileHover={{ y: -6 }}
+              className="
+                card rounded-2xl
+                bg-base-200/80
+                backdrop-blur
+                shadow-md
+                hover:shadow-xl
+                transition-all duration-300
+              "
             >
-              <div className="card-body text-center bg-linear-to-r from-amber-200 to-yellow-50 ">
+              <div
+                className="
+                  card-body text-center
+                  dark:from-base-300
+                  dark:to-base-200
+                "
+              >
                 <div className="text-primary text-4xl mx-auto mb-4">
                   {item.icon}
                 </div>
-                <h3 className="card-title justify-center">
+
+                <h3 className="text-lg font-semibold text-base-content mb-2">
                   {item.title}
                 </h3>
-                <p className="text-sm text-base-content/70">
+
+                <p className="text-sm text-base-content/70 leading-relaxed">
                   {item.desc}
                 </p>
               </div>

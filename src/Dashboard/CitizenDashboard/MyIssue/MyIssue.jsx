@@ -69,13 +69,13 @@ const MyIssue = () => {
 
   return (
     <div>
-      <h1 className="text-3xl pb-10 font-semibold text-green-700 underline">
+      <h1 className="text-3xl pb-10 font-semibold text-green-600 underline">
         My Reported Issues
       </h1>
       <div className="overflow-x-auto bg-base-100 rounded-xl shadow-md">
-        <table className="table table-zebra bg-amber-50">
+        <table className="table table-zebra bg-amber-50 text-black">
           {/* Table Head */}
-          <thead>
+          <thead className="text-black">
             <tr>
               <th>No.</th>
               <th>Issue</th>

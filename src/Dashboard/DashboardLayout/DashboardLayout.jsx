@@ -35,7 +35,7 @@ const DashboardLayout = () => {
             <label
               htmlFor="my-drawer-4"
               aria-label="open sidebar"
-              className="btn btn-square btn-ghost"
+              className="btn btn-square btn-ghost text-black"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -53,7 +53,7 @@ const DashboardLayout = () => {
               </svg>
             </label>
 
-            <div className="px-4 font-semibold">Citizen Dashboard</div>
+            <div className="px-4 font-semibold text-black">Citizen Dashboard</div>
           </nav>
 
           {/* ---------- Page Content ---------- */}
@@ -92,7 +92,7 @@ const DashboardLayout = () => {
             {/* ---------- Menu ---------- */}
 
             {currentUser?.role === "user" && (
-              <ul className="menu w-full grow">
+              <ul className="menu w-full grow text-black">
                 <li>
                   <Link
                     to="/"
@@ -138,11 +138,11 @@ const DashboardLayout = () => {
               </ul>
             )}
             {currentUser?.role === "Admin" && (
-              <ul className="menu w-full grow">
+              <ul className="menu w-full grow text-black">
                 <li>
                   <Link
                     to="/"
-                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    className=" is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Dashboard"
                   >
                     <IoHome />{" "}
@@ -171,16 +171,7 @@ const DashboardLayout = () => {
                 </Link>
               </li>
 
-                {/* <li>
-                <Link
-                  to="/dashboardLayout/reportIssue"
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                  data-tip="Report Issue"
-                >
-                  <MdAssignmentAdd />
-                  <span className="is-drawer-close:hidden">Report Issue</span>
-                </Link>
-              </li> */}
+              
               </ul>
             )}
 
@@ -195,7 +186,7 @@ const DashboardLayout = () => {
                     <img src={user?.photoURL} />
                   </div>
                 </div>
-                <span className="is-drawer-close:hidden font-medium">
+                <span className="text-black is-drawer-close:hidden font-medium">
                   {user?.displayName}
                 </span>
               </div>

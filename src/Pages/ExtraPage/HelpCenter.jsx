@@ -91,7 +91,7 @@ const HelpCenter = () => {
               onClick={() => toggleArticle(article.id)}
               className="w-full px-4 sm:px-6 py-3 sm:py-4 text-left flex justify-between items-center"
             >
-              <h2 className="text-base sm:text-lg font-semibold">
+              <h2 className="text-black sm:text-lg font-semibold">
                 {article.title}
               </h2>
               {openArticles[article.id] ? (

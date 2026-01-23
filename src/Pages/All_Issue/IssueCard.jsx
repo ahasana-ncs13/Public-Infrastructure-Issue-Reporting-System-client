@@ -48,7 +48,7 @@ const IssueCard = ({ issue }) => {
       />
       <div className="p-4">
         <div className="flex justify-between items-center mb-2">
-          <span className="font-semibold text-lg">{issue.title}</span>
+          <span className="font-semibold text-lg text-primary">{issue.title}</span>
           <button
             onClick={handleUpvote}
             className="flex items-center space-x-1 text-primary hover:text-secondary "

@@ -7,28 +7,6 @@ import Loading from "../../SharedComponent/Loader/Loading";
 import { MdDelete } from "react-icons/md";
 import Swal from "sweetalert2";
 
-// Sample feedback data
-// const initialFeedback = [
-//   {
-//     id: 1,
-//     name: "Alice",
-//     rating: 5,
-//     comment: "Quick response! Excellent system.",
-//   },
-//   {
-//     id: 2,
-//     name: "Bob",
-//     rating: 4,
-//     comment: "Very helpful, but UI can be improved.",
-//   },
-//   {
-//     id: 3,
-//     name: "Charlie",
-//     rating: 3,
-//     comment: "Average experience, slow resolution.",
-//   },
-// ];
-
 const Feedback = () => {
   const { user } = useAuth();
 
@@ -104,13 +82,13 @@ const Feedback = () => {
   return (
     <div className="bg-blue-50 w-11/12 mx-auto">
     <div className="max-w-4xl mx-auto px-4 py-10 mt-36 ">
-      <h1 className="text-3xl font-bold text-center mb-8">
+      <h1 className="text-3xl text-black font-bold text-center mb-8">
         Feedback & Ratings
       </h1>
 
       {/* Aggregate Rating */}
       <div className="text-center mb-10">
-        <p className="text-lg font-medium">Average Rating:</p>
+        <p className="text-lg font-medium text-black ">Average Rating:</p>
         <div className="flex justify-center items-center space-x-2 mt-2">
           {[...Array(5)].map((_, i) => (
             <FaStar
@@ -130,7 +108,7 @@ const Feedback = () => {
 
       {/* Feedback Form */}
       <div className="bg-white shadow-md rounded-lg p-6 mb-10 border border-gray-200">
-        <h2 className="text-xl font-semibold mb-4">Submit Your Feedback</h2>
+        <h2 className="text-xl font-semibold mb-4 text-black">Submit Your Feedback</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Star Rating */}
           <div className="flex items-center space-x-2">
@@ -157,7 +135,7 @@ const Feedback = () => {
             placeholder="Leave a comment or suggestion..."
             value={comment}
             onChange={(e) => setComment(e.target.value)}
-            className="w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600"
+            className="w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none text-black focus:ring-2 focus:ring-blue-600"
             rows={4}
           />
 
@@ -196,7 +174,7 @@ const Feedback = () => {
                 {f.comment && <p className="text-gray-700">{f.comment}</p>}
               </div>
               <div>
-                <button onClick={() => handleDelete(f)}>
+                <button className="text-black" onClick={() => handleDelete(f)}>
                   <MdDelete />
                 </button>
               </div>

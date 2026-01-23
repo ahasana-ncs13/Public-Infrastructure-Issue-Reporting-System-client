@@ -120,7 +120,7 @@ const IssueDetails = () => {
       {/* Description */}
       <div className="bg-base-200 p-5 rounded-xl shadow-sm">
         <h3 className="text-xl font-semibold mb-2">Description</h3>
-        <p className="text-gray-700 leading-relaxed">
+        <p className="leading-relaxed">
           {issueDetails.description}
         </p>
       </div>

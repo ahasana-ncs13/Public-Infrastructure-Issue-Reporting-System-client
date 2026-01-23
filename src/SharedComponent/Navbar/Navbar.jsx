@@ -4,68 +4,65 @@ import Logo from "./Logo";
 import useAuth from "../../Hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../Hooks/useAxios";
+import ThemeController from "./ThemeController";
 
 const Navbar = () => {
   const { signOutUser, user } = useAuth();
   const axiosInstance = useAxios();
 
-  const links = (
-    <>
-      <li>
-        <NavLink
-          to="/"
-          className={({ isActive }) => `${isActive && "underline"} mr-2`}
-        >
-          Home
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/all-issue"
-          className={({ isActive }) => `${isActive && "underline"} mr-2`}
-        >
-          All Issues
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/helpcenter"
-          className={({ isActive }) => `${isActive && "underline"} mr-2`}
-        >
-          HelpCenter
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/legalpage"
-          className={({ isActive }) => `${isActive && "underline"} mr-2`}
-        >
-          Legal & Policy
-        </NavLink>
-      </li>
+  const navLinkClass = ({ isActive }) =>
+  `
+    px-2 py-1 rounded-md text-primary 
+    ${isActive
+      ? "underline underline-offset-4 font-medium"
+      : "hover:underline hover:underline-offset-4"}
+  `;
 
-      {user && (
-        <>
-          <li>
-            <NavLink
-              to="/allblogs"
-              className={({ isActive }) => `${isActive && "underline"} mr-2`}
-            >
-              Blogs
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/feedback"
-              className={({ isActive }) => `${isActive && "underline"} mr-2`}
-            >
-              Feedback
-            </NavLink>
-          </li>
-        </>
-      )}
-    </>
-  );
+
+  const links = (
+  <>
+    <li>
+      <NavLink to="/" className={navLinkClass}>
+        Home
+      </NavLink>
+    </li>
+
+    <li>
+      <NavLink to="/all-issue" className={navLinkClass}>
+        All Issues
+      </NavLink>
+    </li>
+
+    <li>
+      <NavLink to="/helpcenter" className={navLinkClass}>
+        Help Center
+      </NavLink>
+    </li>
+
+    <li>
+      <NavLink to="/legalpage" className={navLinkClass}>
+        Legal & Policy
+      </NavLink>
+    </li>
+
+    {user && (
+      <>
+        <li>
+          <NavLink to="/allblogs" className={navLinkClass}>
+            Blogs
+          </NavLink>
+        </li>
+
+        <li>
+          <NavLink to="/feedback" className={navLinkClass}>
+            Feedback
+          </NavLink>
+        </li>
+      </>
+    )}
+  </>
+);
+
 
   // export default Links;
 
@@ -213,6 +210,9 @@ const Navbar = () => {
               Login
             </Link>
           )}
+        </div>
+        <div className="ml-5">
+        <ThemeController></ThemeController>
         </div>
       </div>
     </div>

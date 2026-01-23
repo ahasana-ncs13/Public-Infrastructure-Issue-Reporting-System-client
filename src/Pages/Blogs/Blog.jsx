@@ -38,7 +38,7 @@ const Blog = () => {
           <h2 className="text-3xl md:text-4xl font-bold text-primary">
             Latest Blogs & Trade Insights
           </h2>
-          <p className="mt-4 text-base-content/70 max-w-3xl mx-auto">
+          <p className="mt-4 text-gray-700 max-w-3xl mx-auto">
             Stay updated with global trade trends, import-export guides, and
             expert insights to grow your business confidently.
           </p>

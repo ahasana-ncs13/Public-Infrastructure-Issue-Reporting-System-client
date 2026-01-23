@@ -38,37 +38,37 @@ const CitizenDashboard = () => {
     <>
       {/* Stats Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
-        <div className="stat bg-base-100 shadow rounded-xl">
+        <div className="stat bg-base-100 shadow rounded-xl border border-base-300">
           <div className="stat-title">Total Issues</div>
           <div className="stat-value text-xl sm:text-2xl">
             {stats.totalIssues}
           </div>
         </div>
 
-        <div className="stat bg-yellow-100 shadow rounded-xl">
+        <div className="stat bg-base-100 shadow rounded-xl border border-base-300">
           <div className="stat-title">Pending</div>
-          <div className="stat-value text-xl sm:text-2xl">
+          <div className="stat-value text-warning text-xl sm:text-2xl">
             {stats.pendingIssues}
           </div>
         </div>
 
-        <div className="stat bg-blue-100 shadow rounded-xl">
+        <div className="stat bg-base-100 shadow rounded-xl border border-base-300">
           <div className="stat-title">In Progress</div>
-          <div className="stat-value text-xl sm:text-2xl">
+          <div className="stat-value text-info text-xl sm:text-2xl">
             {stats.inProgressIssues}
           </div>
         </div>
 
-        <div className="stat bg-green-100 shadow rounded-xl">
+        <div className="stat bg-base-100 shadow rounded-xl border border-base-300">
           <div className="stat-title">Resolved</div>
-          <div className="stat-value text-xl sm:text-2xl">
+          <div className="stat-value text-success text-xl sm:text-2xl">
             {stats.resolvedIssues}
           </div>
         </div>
 
-        <div className="stat bg-purple-100 shadow rounded-xl">
+        <div className="stat bg-base-100 shadow rounded-xl border border-base-300">
           <div className="stat-title">Total Payments</div>
-          <div className="stat-value text-xl sm:text-2xl">
+          <div className="stat-value text-secondary text-xl sm:text-2xl">
             ৳ {stats.totalPayments}
           </div>
         </div>
